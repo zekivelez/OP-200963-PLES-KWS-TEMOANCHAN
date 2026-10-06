@@ -1,0 +1,3296 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OP 200963 - PLES - KWS - TEMOANCHAN — Transtools</title>
+    <!-- PERSISTENT DATA STORAGE -->
+    <script id="op-data" type="application/json">{"10":[{"view":"isometrica","x":"73.16","y":"22.96","tx":"70.56","ty":"22.21"}],"11":[{"view":"inferior","x":"12.22","y":"79.46","tx":"12.09","ty":"49.46"},{"view":"inferior","x":"18.64","y":"79.71","tx":"18.78","ty":"48.96"}],"12":[{"view":"lateral-der","x":"65.92","y":"81.46","tx":"65.78","ty":"60.21"}],"13":[{"view":"isometrica","x":"73.30","y":"32.46","tx":"43.37","ty":"45.46"}],"14":[{"view":"inferior","x":"87.78","y":"17.96","tx":"83.68","ty":"42.71"}],"15":[{"view":"inferior","x":"96.93","y":"48.71","tx":"85.87","ty":"49.21"}],"16":[{"view":"isometrica","x":"73.30","y":"42.21","tx":"70.84","ty":"40.71"}],"17":[{"view":"frontal","x":"13.18","y":"47.71","tx":"47.20","ty":"46.71"}],"18":[{"view":"inferior","x":"83.82","y":"80.71","tx":"83.95","ty":"51.71"}],"19":[{"view":"inferior","x":"71.93","y":"81.46","tx":"71.38","ty":"49.21"}],"21":[{"view":"posterior","x":"86.14","y":"50.71","tx":"70.02","ty":"51.71"}],"22":[{"view":"inferior","x":"7.85","y":"17.46","tx":"9.49","ty":"34.71"}],"23":[{"view":"inferior","x":"13.45","y":"17.96","tx":"13.18","ty":"34.71"}],"24":[{"view":"isometrica","x":"73.30","y":"51.96","tx":"70.97","ty":"51.21"}],"25":[{"view":"posterior","x":"13.72","y":"66.46","tx":"25.88","ty":"67.21"}],"27":[{"view":"lateral-der","x":"34.08","y":"80.96","tx":"34.22","ty":"67.21"}],"28":[{"view":"lateral-der","x":"26.16","y":"80.46","tx":"26.02","ty":"68.71"}],"01":[{"view":"isometrica","x":"73.30","y":"4.21","tx":"71.11","ty":"3.71"}],"02":[{"view":"isometrica","x":"73.16","y":"14.21","tx":"70.84","ty":"12.46"}],"05":[{"view":"lateral-der","x":"50.89","y":"81.46","tx":"50.75","ty":"63.71"}],"06":[{"view":"inferior","x":"41.60","y":"79.96","tx":"41.46","ty":"48.71"}],"07":[{"view":"inferior","x":"53.89","y":"80.71","tx":"53.76","ty":"49.21"}],"08":[{"view":"frontal","x":"13.59","y":"22.46","tx":"49.39","ty":"21.71"}],"09":[{"view":"posterior","x":"53.62","y":"63.21","tx":"50.34","ty":"63.21"}]}</script>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&amp;family=Barlow:wght@300;400;500;600&amp;family=IBM+Plex+Mono:wght@400;600&amp;display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="img/Transtools.png">
+    <style>
+        :root {
+            --brand-black: #000000;
+            --brand-navy: #004892;
+            --orange: #f96302;
+            /* Estructura */
+            --navy: #004892;
+            /* Suspensión */
+            --green: #16a34a;
+            /* Eléctrico */
+            --purple: #9333ea;
+            /* Refacciones */
+            --brand-wine: #B3321E;
+            /* Vino/Burgundy */
+            --brand-wine-light: #fff5f5;
+            /* Vino Light */
+            --text: #1e293b;
+            --dim: #475569;
+            --muted: #64748b;
+            --border: #e2e8f0;
+            --border2: #f8fafc;
+            --bg: #FFFFFF;
+            --bg2: #f8fafc;
+            --bg3: #f1f5f9;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            background: #0f172a;
+            font-family: 'Barlow', sans-serif;
+            font-size: 14px;
+            color: var(--text);
+            line-height: 1.4;
+        }
+
+        .page {
+            width: 100%;
+            min-height: 100vh;
+            background: white;
+            display: flex;
+            flex-direction: row;
+            /* Sidebar on left, rest on right */
+        }
+
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            min-width: 0;
+        }
+
+        /* ── HEADER ─────────────────────── */
+        .header {
+            background: var(--brand-navy);
+            padding: 18px 28px;
+            display: grid;
+            grid-template-columns: auto 1fr auto auto;
+            align-items: center;
+            gap: 32px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-img {
+            height: 34px;
+            width: auto;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+        }
+
+        .header-title {
+            text-align: center;
+        }
+
+        .header-title .ht-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: rgba(255, 255, 255, .6);
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .header-title .ht-num {
+            font-family: 'Barlow Condensed';
+            font-size: 26px;
+            font-weight: 700;
+            color: white;
+            letter-spacing: 2px;
+            line-height: 1;
+        }
+
+        .header-status {
+            background: var(--brand-black);
+            padding: 8px 18px;
+            border-radius: 4px;
+            font-family: 'Barlow Condensed';
+            font-weight: 700;
+            font-size: 14px;
+            color: white;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            box-shadow: 0 2px 8px rgba(3, 3, 3, 0.3);
+        }
+
+        .header-dates {
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 4px;
+        }
+
+        .header-dates .hd-row {
+            font-size: 12px;
+            color: rgba(255, 255, 255, .7);
+            padding: 1px 0;
+        }
+
+        .header-dates .hd-row span {
+            color: white;
+            font-weight: 600;
+        }
+
+        .header-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 0;
+            margin-right: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .header-menu-btn {
+                display: block;
+            }
+        }
+
+        /* ── CLIENT STRIP ─────────────────── */
+        .client-strip {
+            background: #FFFFFF;
+            border-bottom: 2px solid var(--brand-navy);
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            border-top: 1px solid var(--border);
+        }
+
+        .cs-cell {
+            padding: 12px 18px;
+            border-right: 1px solid var(--border);
+        }
+
+        .cs-cell:last-child {
+            border-right: none;
+        }
+
+        .cs-key {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--muted);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .cs-val {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--brand-navy);
+        }
+
+        .cs-val.code {
+            font-family: 'IBM Plex Mono';
+            font-size: 13px;
+            color: var(--brand-navy);
+        }
+
+        /* ── PRODUCT BANNER ─────────────────── */
+        .product-banner {
+            background: var(--brand-navy);
+            padding: 14px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .pb-name {
+            font-family: 'Barlow Condensed';
+            font-weight: 700;
+            font-size: 18px;
+            color: white;
+            letter-spacing: 1.5px;
+        }
+
+        .pb-dims {
+            display: flex;
+            gap: 24px;
+        }
+
+        .pb-dim {
+            text-align: center;
+        }
+
+        .pb-dk {
+            font-size: 10px;
+            color: rgba(255, 255, 255, .8);
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .pb-dv {
+            font-family: 'IBM Plex Mono';
+            font-size: 16px;
+            font-weight: 700;
+            color: white;
+        }
+
+        /* ── MAIN BODY ────────────────────── */
+        .main-body {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            align-items: stretch;
+        }
+
+        /* ── CONFIG PANEL (right) ─────────── */
+        .config-panel {
+            background: var(--bg2);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 20px;
+            z-index: 10;
+        }
+
+        /* Adjust page to allow sticky behavior if needed, 
+       but here we want the panel sticky within the grid */
+
+        /* ── VIEWS PANEL (left) ───────────── */
+        .views-panel {
+            padding: 10px 20px 16px;
+            background: white;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .views-panel-title {
+            font-family: 'Barlow Condensed';
+            font-weight: 700;
+            font-size: 16px;
+            letter-spacing: 2px;
+            color: var(--navy);
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .views-panel-title::before {
+            content: '';
+            display: block;
+            width: 6px;
+            height: 18px;
+            background: var(--orange);
+            border-radius: 3px;
+        }
+
+        .views-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            margin-bottom: 12px;
+        }
+
+        .view-cell {
+            background: #ededed;
+            border: 1px solid var(--border2);
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .view-cell .vc-label {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: var(--navy);
+            color: white;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 4px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            z-index: 20;
+        }
+
+        .img-wrapper {
+            position: relative;
+            display: inline-block;
+            line-height: 0;
+            margin: 10px;
+            --scale: 1;
+            /* Default scale */
+        }
+
+        /* Force normal size on Laptops/Desktops regardless of JS calc */
+        @media (min-width: 1025px) {
+            .img-wrapper {
+                --scale: 1 !important;
+            }
+        }
+
+        .view-cell img {
+            max-width: 100%;
+            max-height: 400px;
+            /* 420px max cell height minus padding margin */
+            width: auto;
+            height: auto;
+            display: block;
+            pointer-events: none;
+            /* Allows clicks to register on the wrapper */
+        }
+
+        .vc-superior,
+        .vc-inferior,
+        .vc-isometrica,
+        .vc-frontal-der,
+        .vc-frontal,
+        .vc-posterior {
+            height: 420px;
+        }
+
+        /* callout numbers on views */
+
+        .callout-dot {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--navy);
+            color: white;
+            font-size: 15px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid white;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, .4);
+            z-index: 3;
+            cursor: default;
+            font-family: 'Barlow Condensed', sans-serif;
+            transform: translate(-50%, -50%) scale(var(--scale, 1));
+            transform-origin: center;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        .callout-dot:hover {
+            transform: translate(-50%, -50%) scale(calc(var(--scale, 1) * 1.2));
+            z-index: 10;
+        }
+
+        /* Tooltip */
+
+        .callout-dot.estructura {
+            background: var(--orange);
+            box-shadow: 0 0 0 2px white, 0 4px 12px rgba(249, 115, 22, 0.5);
+        }
+
+        .callout-dot.suspension {
+            background: #78350f;
+            box-shadow: 0 0 0 2px white, 0 4px 12px rgba(120, 53, 15, 0.5);
+        }
+
+        .callout-dot.refacciones {
+            background: var(--purple);
+            box-shadow: 0 0 0 2px white, 0 4px 12px rgba(192, 38, 211, 0.5);
+        }
+
+        .callout-dot.electrico {
+            background: var(--green);
+            box-shadow: 0 0 0 2px white, 0 4px 12px rgba(22, 163, 74, 0.5);
+        }
+
+        /* Star shape for Adicionales */
+        .callout-dot.adicionales {
+            background: var(--brand-wine);
+            width: 36px;
+            height: 36px;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            border-radius: 0;
+            border: none;
+            box-shadow: none;
+            filter: drop-shadow(0 0 0 2px white) drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+            font-size: 16px;
+            font-weight: 900;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+            padding-top: 1px;
+            /* Visual center adjustment */
+        }
+
+        /* Tooltips */
+        .callout-tooltip {
+            position: fixed;
+            background: #1e293b;
+            color: white;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            line-height: 1.4;
+            font-weight: 400;
+            pointer-events: none;
+            white-space: normal;
+            max-width: 280px;
+            z-index: 10000;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+            opacity: 0;
+            transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1), transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translate(calc(-50% + var(--arrow-offset, 0px)), -110%);
+            font-family: 'Barlow', sans-serif;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .callout-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: calc(50% - var(--arrow-offset, 0px));
+            margin-left: -6px;
+            border-width: 6px;
+            border-style: solid;
+            border-color: #1e293b transparent transparent transparent;
+        }
+
+        /* ── ADMIN / EDIT MODE STYLES ─────────────────── */
+        .admin-lock {
+            cursor: pointer;
+            opacity: 0.3;
+            transition: opacity 0.2s;
+            display: inline-flex;
+            align-items: center;
+            margin-left: 10px;
+        }
+
+        .admin-lock:hover {
+            opacity: 1;
+        }
+
+        .admin-save-btn {
+            display: none;
+            background: var(--green);
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 4px;
+            font-family: 'Barlow Condensed';
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .admin-save-btn:hover {
+            background: #15803d;
+        }
+
+        /* When in View Mode (Default), disable drawing logic */
+        body:not(.is-edit-mode) .view-cell {
+            cursor: default !important;
+        }
+
+        body:not(.is-edit-mode) .callout-dot {
+            cursor: pointer !important;
+        }
+
+        body:not(.is-edit-mode) .cfg-row {
+            cursor: default;
+        }
+
+        /* Reveal save button in edit mode */
+        body.is-edit-mode .admin-save-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        body.is-edit-mode .admin-lock {
+            opacity: 1;
+            color: var(--orange);
+        }
+
+        /* Row Highlight - Active Selection for Stamping */
+        .cfg-row.is-selected {
+            border-left: 8px solid var(--navy) !important;
+            background: rgba(37, 99, 235, 0.1) !important;
+            box-shadow: inset 4px 0 10px -2px var(--navy);
+            transform: translateX(4px);
+            z-index: 5;
+        }
+
+        .cfg-row.is-selected .cfg-num {
+            background: var(--navy);
+            color: white;
+        }
+
+        /* Item-specific Filtering */
+        .views-panel.item-filter-active .callout-dot {
+            opacity: 0.03;
+            pointer-events: none;
+            filter: grayscale(1) blur(1px);
+        }
+
+        .views-panel .callout-dot.item-match {
+            opacity: 1 !important;
+            transform: scale(1.5) !important;
+            filter: none !important;
+            z-index: 100 !important;
+            box-shadow: 0 0 20px rgba(234, 88, 12, 0.6), 0 0 0 4px white !important;
+            pointer-events: auto !important;
+            /* Restore tooltips for the active item */
+        }
+
+        /* SVG Overlay for Lines */
+        .svg-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .leader-line {
+            fill: none;
+            stroke: var(--navy);
+            stroke-width: calc(2.5 * var(--scale, 1));
+            stroke-dasharray: 4;
+            opacity: 0.6;
+            transition: stroke-dashoffset 0.6s ease-out, opacity 0.3s;
+            pointer-events: none;
+        }
+
+        /* Target Node (End of Line) */
+        .target-node {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: white;
+            border: 2px solid var(--navy);
+            border-radius: 50%;
+            z-index: 4;
+            cursor: move;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Marker Actions Popup (Sticky & Premium) */
+        .marker-actions {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            display: flex;
+            gap: 6px;
+            padding: 6px;
+            z-index: 2000;
+            pointer-events: auto;
+            transform: translate(-50%, 20px);
+            /* Positioned below the dot */
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .action-btn {
+            width: 34px;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            cursor: pointer;
+            border: none;
+            background: rgba(255, 255, 255, 0.8);
+            transition: all 0.2s;
+            text-decoration: none;
+            color: var(--brand-navy);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .action-btn.monday {
+            background: rgba(97, 86, 255, 0.08);
+            color: #6156ff;
+            border: 1px solid rgba(97, 86, 255, 0.3);
+            font-weight: 600;
+            width: auto;
+            padding: 0 12px;
+            gap: 6px;
+        }
+
+        .action-btn.monday:hover {
+            background: #6156ff;
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(97, 86, 255, 0.3);
+        }
+
+        .action-btn:hover {
+            background: #fee2e2;
+            color: #ef4444;
+        }
+
+        .action-btn.move:hover {
+            background: #e0f2fe;
+            color: #0ea5e9;
+        }
+
+        /* Table Strikethrough State (Admin only) */
+        body.is-edit-mode .cfg-row.is-placed .cfg-desc {
+            text-decoration: line-through;
+            opacity: 0.5;
+        }
+
+        body.is-edit-mode .cfg-row.is-placed .cfg-num {
+            background: var(--muted) !important;
+            opacity: 0.7;
+        }
+
+        body.is-edit-mode .cfg-row.is-placed {
+            background: #f1f5f9;
+            opacity: 0.9;
+        }
+
+        body.is-edit-mode .cfg-row.is-exhausted {
+            background: #e2e8f0;
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .cfg-row.is-excluded {
+            opacity: 0.4;
+            background: #f1f5f9;
+            cursor: not-allowed;
+            pointer-events: none;
+            font-style: italic;
+            position: relative !important;
+        }
+
+        .cfg-row.is-highlighted {
+            background: #fef08a !important;
+            /* Yellow glow */
+            border-left: 8px solid var(--orange) !important;
+            transition: all 0.5s;
+        }
+
+        .no-incluye-badge {
+            background: #94a3b8;
+            color: white;
+            padding: 1px 6px;
+            border-radius: 10px;
+            font-size: 8px;
+            font-weight: 700;
+            font-style: normal;
+            margin-left: 8px;
+            display: inline-block;
+            vertical-align: middle;
+            text-transform: uppercase;
+            line-height: 1.2;
+        }
+
+        /* Unconfirmed State for Dots */
+        .callout-dot.is-unconfirmed::after {
+            content: '⚠️';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #f97316;
+            color: #000;
+            width: 18px;
+            height: 18px;
+            border-radius: 4px;
+            border: 1px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            z-index: 5;
+        }
+
+        /* Unconfirmed Badge for Table Rows */
+        .unconfirmed-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(249, 115, 22, 0.1);
+            color: #f97316;
+            border: 1px solid rgba(249, 115, 22, 0.3);
+            font-size: 9px;
+            font-weight: 800;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 8px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .monday-link {
+            display: inline-flex;
+            align-items: center;
+            margin-left: 4px;
+            color: var(--dim);
+            opacity: 0.5;
+            transition: all 0.2s;
+        }
+
+        .monday-link:hover {
+            opacity: 1;
+            color: #784ed1;
+        }
+
+        /* Row Delete Button (Edit Mode) */
+        .row-delete-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #ef4444;
+            opacity: 0.3;
+            padding: 2px;
+        }
+
+        .row-delete-btn:hover {
+            opacity: 1;
+        }
+
+        body.is-edit-mode .row-delete-btn {
+            display: inline-flex;
+        }
+
+        /* New Item Button */
+        .btn-add-item {
+            display: none;
+            width: 100%;
+            padding: 8px;
+            margin-top: 10px;
+            border: 1px dashed var(--border);
+            background: transparent;
+            color: var(--muted);
+            font-family: 'Barlow Condensed';
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 4px;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .btn-add-item:hover {
+            background: #f8fafc;
+            border-color: var(--navy);
+            color: var(--navy);
+        }
+
+        body.is-edit-mode .btn-add-item {
+            display: flex;
+        }
+
+        .cfg-row.is-placed::after {
+            content: '✓';
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--green);
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        body.is-edit-mode .view-cell.stamp-ready {
+            cursor: crosshair;
+            outline: 2px dashed var(--navy);
+            outline-offset: -4px;
+        }
+
+
+        /* ── OBSERVATIONS ─────────────────── */
+        .obs-box {
+            background: var(--brand-wine-light);
+            border: 1px solid #feb2b2;
+            border-left: 6px solid var(--brand-wine);
+            border-radius: 6px;
+            padding: 12px 14px;
+            margin-top: 12px;
+        }
+
+        .obs-title {
+            font-family: 'Barlow Condensed';
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--brand-wine);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .obs-item {
+            font-size: 12px;
+            color: var(--brand-wine);
+            padding: 2px 0;
+            display: flex;
+            gap: 6px;
+            font-weight: 600;
+        }
+
+        .obs-item::before {
+            content: "⚠";
+            color: var(--brand-wine);
+            font-size: 11px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* ── CONFIG PANEL (right) ─────────── */
+        .config-panel {
+            padding: 16px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            background: var(--bg2);
+        }
+
+        .config-title {
+            font-family: 'Barlow Condensed';
+            font-weight: 700;
+            font-size: 16px;
+            letter-spacing: 2px;
+            color: var(--navy);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .config-title:hover {
+            color: var(--orange);
+        }
+
+        .config-title::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 18px;
+            background: var(--navy);
+            border-radius: 3px;
+            margin-right: 8px;
+        }
+
+        .sec-header {
+            background: var(--brand-navy);
+            padding: 10px 18px;
+            font-family: 'Barlow Condensed';
+            font-weight: 700;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            margin-top: 6px;
+            border-left: 5px solid var(--brand-navy);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .sec-header:hover {
+            background: #1e293b;
+            transform: translateX(4px);
+        }
+
+        .sec-header.is-active {
+            transform: translateX(6px);
+            box-shadow: -4px 0 0 0 var(--text), 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+
+        .cfg-row {
+            display: grid;
+            grid-template-columns: 22px 70px 1fr 45px;
+            /* Widened for counter */
+            gap: 10px;
+            align-items: center;
+            padding: 6px 10px;
+            border-bottom: 1px solid var(--border);
+            transition: all .2s ease;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .cfg-row:hover {
+            background: #f1f5f9;
+        }
+
+        .cfg-row.is-selected {
+            background: #eff6ff !important;
+            border-left: 8px solid var(--navy) !important;
+            box-shadow: inset 0 0 10px rgba(37, 99, 235, 0.1);
+        }
+
+        /* Counter Badges */
+        .cfg-count-badge {
+            font-family: 'IBM Plex Mono';
+            font-size: 10px;
+            padding: 2px 5px;
+            border-radius: 4px;
+            background: var(--bg3);
+            color: var(--muted);
+            font-weight: 700;
+            text-align: center;
+            border: 1px solid var(--border);
+            min-width: 32px;
+        }
+
+        .cfg-count-badge.has-count {
+            background: var(--navy);
+            color: white;
+            border-color: var(--navy);
+        }
+
+        .cfg-count-badge.complete {
+            background: var(--green);
+            color: white;
+            border-color: var(--green);
+        }
+
+        body.is-edit-mode .img-wrapper.stamp-ready {
+            cursor: crosshair !important;
+            outline: 2px dashed var(--navy);
+            outline-offset: 4px;
+        }
+
+        .img-wrapper.stamp-ready img {
+            pointer-events: none;
+        }
+
+        .cfg-num {
+            font-family: 'Barlow Condensed';
+            font-size: 11px;
+            color: white;
+            text-align: center;
+            font-weight: 700;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--navy);
+            /* Default */
+        }
+
+        .sec-estructura~.cfg-row .cfg-num {
+            background: var(--orange);
+        }
+
+        .sec-refacciones~.cfg-row .cfg-num {
+            background: var(--purple);
+        }
+
+        .sec-suspension~.cfg-row .cfg-num {
+            background: var(--navy);
+        }
+
+        .sec-electrico~.cfg-row .cfg-num {
+            background: var(--green);
+        }
+
+        /* Reset background for subsequent sections to avoid bleeding */
+        .sec-header {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cfg-row {
+            position: relative;
+            z-index: 0;
+        }
+
+
+        .cfg-code {
+            font-family: 'IBM Plex Mono';
+            font-size: 10px;
+            color: var(--orange);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-weight: 600;
+        }
+
+        .cfg-desc {
+            font-size: 10px;
+            color: var(--dim);
+            line-height: 1.4;
+        }
+
+        .cfg-desc strong {
+            color: var(--brand-navy);
+            font-weight: 700;
+            font-size: 11px;
+        }
+
+        .cfg-qty {
+            font-family: 'IBM Plex Mono';
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--brand-navy);
+            text-align: center;
+            background: var(--border2);
+            border-radius: 4px;
+            padding: 2px 4px;
+        }
+
+        /* ── CALLOUT LEGEND ───────────────── */
+        .legend-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .leg-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            padding: 6px 10px;
+            background: white;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+            transition: border-color 0.2s;
+        }
+
+        .leg-item:hover {
+            border-color: var(--navy);
+        }
+
+        .leg-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 700;
+            color: white;
+            font-family: 'Barlow Condensed', sans-serif;
+            background: var(--navy);
+            margin-top: 2px;
+        }
+
+        .leg-text {
+            font-size: 11px;
+            color: var(--dim);
+            line-height: 1.4;
+        }
+
+        .leg-text b {
+            color: var(--brand-navy);
+            font-weight: 700;
+            display: block;
+            font-size: 12px;
+            margin-bottom: 1px;
+        }
+
+        /* ── FOOTER ───────────────────────── */
+        .footer {
+            border-top: 1px solid var(--border);
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 0;
+            background: var(--bg2);
+        }
+
+        .footer-sign {
+            padding: 12px 18px;
+            border-right: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .footer-sign:last-child {
+            border-right: none;
+        }
+
+        .fs-role {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--muted);
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .fs-line {
+            border-bottom: 1px solid var(--border);
+            margin: 0 16px 6px;
+        }
+
+        .fs-name {
+            font-size: 11px;
+            color: var(--dim);
+            font-weight: 500;
+        }
+
+        .footer-addr {
+            padding: 12px 18px;
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .footer-addr .fa-line {
+            font-size: 10px;
+            color: var(--muted);
+            line-height: 1.4;
+        }
+
+        .footer-addr .fa-web {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--brand-navy);
+            font-weight: 700;
+        }
+
+        .page-num {
+            font-family: 'IBM Plex Mono';
+            font-size: 11px;
+            color: var(--muted);
+            text-align: right;
+            padding: 12px 18px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+            font-weight: 600;
+        }
+
+        /* ── APP LAYOUT (no longer used as wrapper, but keeping for compatibility) ── */
+        .app-layout {
+            display: flex;
+            align-items: stretch;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* ── RAIL (always visible, sticky) ───── */
+        .sidebar {
+            display: flex;
+            flex-shrink: 0;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            z-index: 50;
+        }
+
+        .sidebar-rail {
+            width: 52px;
+            background: var(--brand-navy);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px 0;
+            gap: 3px;
+            flex-shrink: 0;
+            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.18);
+            /* Sticky: stays in place as content scrolls */
+            position: sticky;
+            top: 0;
+            height: 100%;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .rail-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            border: none;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.55);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, color 0.2s, transform 0.15s;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .rail-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+            color: white;
+            transform: scale(1.08);
+        }
+
+        .rail-btn.is-active {
+            background: var(--brand-navy);
+            color: white;
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.18);
+        }
+
+        .rail-btn[data-zone="estructura"].is-active {
+            background: var(--orange);
+        }
+
+        .rail-btn[data-zone="refacciones"].is-active {
+            background: var(--purple);
+        }
+
+        .rail-btn[data-zone="suspension"].is-active {
+            background: #78350f;
+        }
+
+        .rail-btn[data-zone="electrico"].is-active {
+            background: var(--green);
+        }
+
+        /* Tooltip */
+        .rail-btn[title]::after {
+            content: attr(title);
+            position: absolute;
+            left: calc(100% + 10px);
+            top: 50%;
+            transform: translateY(-50%);
+            background: #1e293b;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: white;
+            font-family: 'Barlow', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            white-space: nowrap;
+            padding: 5px 10px;
+            border-radius: 6px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.15s;
+            z-index: 300;
+        }
+
+        .rail-btn[title]:hover::after {
+            opacity: 1;
+        }
+
+        .rail-divider {
+            width: 28px;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.12);
+            margin: 5px 0;
+            flex-shrink: 0;
+        }
+
+        .rail-spacer {
+            flex: 1;
+        }
+
+        /* ── DRAWER (slides open) ───────────── */
+        .sidebar-drawer {
+            width: 0;
+            overflow: hidden;
+            background: var(--bg2);
+            border-right: 1px solid var(--border);
+            transition: width 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar.is-open .sidebar-drawer {
+            width: 286px;
+        }
+
+        #sidebarCollapse svg {
+            transition: transform 0.3s;
+        }
+
+        .sidebar.is-open #sidebarCollapse svg {
+            transform: rotate(180deg);
+        }
+
+        .drawer-inner {
+            width: 286px;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        /* Drawer zone header */
+        .drawer-header {
+            padding: 10px 14px 8px;
+            border-bottom: 1px solid var(--border);
+            flex-shrink: 0;
+        }
+
+        .drawer-zone-label {
+            font-family: 'Barlow Condensed';
+            font-weight: 700;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 2px;
+        }
+
+        .drawer-zone-name {
+            font-family: 'Barlow Condensed';
+            font-weight: 800;
+            font-size: 16px;
+            color: var(--brand-navy);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .drawer-zone-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--brand-navy);
+            flex-shrink: 0;
+        }
+
+        /* Zone-items panels (flat, no accordion) */
+        .zone-items {
+            display: none;
+        }
+
+        .zone-items.active {
+            display: block;
+        }
+
+        /* Zone-coloured elements */
+        .zone-items[data-zone="estructura"] .cfg-num {
+            background: var(--orange);
+        }
+
+        .zone-items[data-zone="estructura"] .cfg-code,
+        .zone-items[data-zone="estructura"] .cfg-qty {
+            color: var(--orange);
+        }
+
+        .zone-items[data-zone="estructura"] strong {
+            color: var(--orange);
+        }
+
+        .zone-items[data-zone="estructura"] .cfg-row {
+            border-left: 2px solid var(--orange);
+            margin-bottom: 2px;
+        }
+
+        .zone-items[data-zone="refacciones"] .cfg-num {
+            background: var(--purple);
+        }
+
+        .zone-items[data-zone="refacciones"] .cfg-code,
+        .zone-items[data-zone="refacciones"] .cfg-qty {
+            color: var(--purple);
+        }
+
+        .zone-items[data-zone="refacciones"] strong {
+            color: var(--purple);
+        }
+
+        .zone-items[data-zone="refacciones"] .cfg-row {
+            border-left: 2px solid var(--purple);
+            margin-bottom: 2px;
+        }
+
+        .zone-items[data-zone="suspension"] .cfg-num {
+            background: #78350f;
+        }
+
+        .zone-items[data-zone="suspension"] .cfg-code,
+        .zone-items[data-zone="suspension"] .cfg-qty {
+            color: #78350f;
+        }
+
+        .zone-items[data-zone="suspension"] strong {
+            color: #78350f;
+        }
+
+        .zone-items[data-zone="suspension"] .cfg-row {
+            border-left: 2px solid #78350f;
+            margin-bottom: 2px;
+        }
+
+        .zone-items[data-zone="electrico"] .cfg-num {
+            background: var(--green);
+        }
+
+        .zone-items[data-zone="electrico"] .cfg-code,
+        .zone-items[data-zone="electrico"] .cfg-qty {
+            color: var(--green);
+        }
+
+        .zone-items[data-zone="electrico"] strong {
+            color: var(--green);
+        }
+
+        .zone-items[data-zone="electrico"] .cfg-row {
+            border-left: 2px solid var(--green);
+            margin-bottom: 2px;
+        }
+
+        /* Highlight Dot Focus */
+        .views-panel.dot-focus .callout-dot:not(.is-focused),
+        .views-panel.dot-focus .leader-line:not(.is-focused),
+        .views-panel.dot-focus .target-node:not(.is-focused) {
+            opacity: 0.1 !important;
+            filter: grayscale(1);
+        }
+
+        .callout-dot.is-focused {
+            z-index: 1000 !important;
+            box-shadow: 0 0 0 4px white, 0 0 20px rgba(0, 0, 0, 0.5) !important;
+            transform: scale(1.3) !important;
+        }
+
+        .leader-line.is-focused {
+            opacity: 1 !important;
+            stroke-width: 3 !important;
+        }
+
+        /* Zone filtering in images (Only applied if is-filtering-zone class is active) */
+        body.is-filtering-zone[data-active-zone="estructura"] .callout-dot:not(.estructura),
+        body.is-filtering-zone[data-active-zone="estructura"] .leader-line:not(.estructura),
+        body.is-filtering-zone[data-active-zone="estructura"] .target-node:not(.estructura) {
+            opacity: 0.05 !important;
+            pointer-events: none;
+        }
+
+        body.is-filtering-zone[data-active-zone="refacciones"] .callout-dot:not(.refacciones),
+        body.is-filtering-zone[data-active-zone="refacciones"] .leader-line:not(.refacciones),
+        body.is-filtering-zone[data-active-zone="refacciones"] .target-node:not(.refacciones) {
+            opacity: 0.05 !important;
+            pointer-events: none;
+        }
+
+        body.is-filtering-zone[data-active-zone="suspension"] .callout-dot:not(.suspension),
+        body.is-filtering-zone[data-active-zone="suspension"] .leader-line:not(.suspension),
+        body.is-filtering-zone[data-active-zone="suspension"] .target-node:not(.suspension) {
+            opacity: 0.05 !important;
+            pointer-events: none;
+        }
+
+        body.is-filtering-zone[data-active-zone="electrico"] .callout-dot:not(.electrico),
+        body.is-filtering-zone[data-active-zone="electrico"] .leader-line:not(.electrico),
+        body.is-filtering-zone[data-active-zone="electrico"] .target-node:not(.electrico) {
+            opacity: 0.05 !important;
+            pointer-events: none;
+        }
+
+        /* Adicionales / Cambios Section (Wine) */
+        .rail-btn[data-zone="adicionales"].is-active {
+            background: var(--brand-wine);
+        }
+
+        .zone-items[data-zone="adicionales"] .cfg-num {
+            background: var(--brand-wine);
+        }
+
+        .zone-items[data-zone="adicionales"] .cfg-code,
+        .zone-items[data-zone="adicionales"] .cfg-qty {
+            color: var(--brand-wine);
+        }
+
+        .zone-items[data-zone="adicionales"] strong {
+            color: var(--brand-wine);
+        }
+
+        .zone-items[data-zone="adicionales"] .cfg-row {
+            border-left: 2px solid var(--brand-wine);
+            margin-bottom: 2px;
+        }
+
+        /* UI Fix: Prevent overlap with orange indicator */
+        .cfg-row {
+            padding-left: 18px;
+            /* More padding to avoid border-left overlap */
+        }
+
+        .cfg-row.is-highlighted,
+        .cfg-row.is-selected {
+            border-left-width: 10px !important;
+        }
+
+        .cfg-link {
+            margin-left: auto;
+            padding-right: 4px;
+            display: flex;
+            align-items: center;
+        }
+
+        .drawer-zone-name {
+            cursor: pointer;
+            user-select: none;
+            padding: 4px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .drawer-zone-name:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        body.is-filtering-zone .drawer-zone-name {
+            box-shadow: inset 0 0 0 1px var(--border);
+            background: #f1f5f9;
+        }
+
+        /* Monday Link icon */
+        .monday-icon {
+            width: 12px;
+            height: 12px;
+            vertical-align: middle;
+        }
+
+        /* cfg-row tighter inside drawer */
+        .drawer-inner .cfg-row {
+            grid-template-columns: 22px 1fr 28px 22px;
+            gap: 10px;
+            padding: 5px 10px;
+            position: relative;
+            align-items: center;
+        }
+
+        .cfg-link {
+            display: none !important;
+        }
+
+        .cfg-link {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-width: 22px;
+        }
+
+        /* ── CONTENT AREA ───────────────────── */
+        .content-area {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ── MAIN HEADER ─────────────────── */
+        /* The header/client-strip/product-banner are outside app-layout and span full width */
+
+        /* ── PRINT OPTIMIZATION ─────────────── */
+        @media print {
+
+            html,
+            body {
+                height: auto;
+                overflow: auto;
+            }
+
+            .page {
+                height: auto;
+            }
+
+            .sidebar-rail {
+                position: relative;
+                height: auto;
+            }
+
+            .content-area {
+                overflow: visible;
+            }
+        }
+
+        #drawerZoneText {
+            transition: color 0.3s ease;
+            font-weight: 700;
+        }
+
+        /* ── MOBILE RESPONSIVENESS ─────────────── */
+        @media (max-width: 1024px) {
+            .client-strip {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .cs-cell {
+                border-bottom: 1px solid var(--border);
+            }
+
+            .footer {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-sign {
+                border-bottom: 1px solid var(--border);
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            /* Sidebar Off-Canvas Drawer */
+            .sidebar {
+                position: fixed;
+                left: -100%;
+                top: 0;
+                bottom: 0;
+                z-index: 9999;
+                transition: left 0.3s ease;
+            }
+
+            .sidebar.is-open {
+                left: 0;
+            }
+
+            /* Mobile Header Layout */
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 12px 20px;
+                gap: 10px;
+            }
+
+            .header-dates {
+                align-items: flex-start;
+                text-align: left;
+            }
+
+            .product-banner {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 14px;
+            }
+
+            .client-strip {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            /* Hide empty padding to maximize screen */
+            .page {
+                height: auto;
+                padding-bottom: 40px;
+            }
+
+            .content-area {
+                overflow-y: visible;
+            }
+
+            /* Image Cells shrink */
+            .view-cell img {
+                max-height: 250px;
+            }
+
+            .vc-superior,
+            .vc-inferior,
+            .vc-isometrica,
+            .vc-frontal-der,
+            .vc-frontal,
+            .vc-posterior {
+                height: auto;
+                min-height: 200px;
+            }
+
+            /* Checklists reflow */
+            div[style*="grid-template-columns:repeat(4, 1fr)"] {
+                grid-template-columns: 1fr 1fr !important;
+            }
+
+            div[style*="grid-template-columns:repeat(4, 1fr)"]>div {
+                border-bottom: 1px solid var(--border2);
+            }
+
+            div[style*="grid-template-columns:repeat(4, 1fr)"]>div:nth-child(even) {
+                border-right: none !important;
+            }
+
+            /* Dynamically shrink points and lines so they don't cover the small images */
+            .callout-dot {
+                width: 20px;
+                height: 20px;
+                font-size: 11px;
+                border-width: 1.5px;
+            }
+
+            .target-node {
+                width: 6px;
+                height: 6px;
+            }
+
+            /* Make svg path lines thinner when scaled down */
+            .svg-overlay path {
+                stroke-width: 1.5 !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .client-strip {
+                grid-template-columns: 1fr;
+            }
+
+            .cs-cell {
+                border-right: none;
+            }
+
+            .pb-dims {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .footer {
+                grid-template-columns: 1fr;
+            }
+
+            /* Mobile Floating Menu Button when Sidebar is closed */
+            #mobileMenuToggle {
+                display: block;
+            }
+        }
+
+        /* Dedicated Mobile Toggle Button, injected into HTML later if needed, hidden by default desktop */
+        #mobileMenuToggle {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--navy);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            z-index: 9990;
+            border: none;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @media (max-width: 768px) {
+            #mobileMenuToggle {
+                display: flex;
+            }
+        }
+
+        /* ── GRABADO MODAL ─────────────────── */
+        #grabadoModal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            animation: modalFadeIn 0.25s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        #grabadoModal .modal-card {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #0f172a 100%);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 32px 80px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.07);
+            max-width: 680px;
+            width: 90%;
+            animation: modalSlideUp 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+        }
+
+        @keyframes modalSlideUp {
+            from {
+                transform: translateY(30px) scale(0.96);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body cz-shortcut-listen="true" class="">
+
+    <div class="page">
+
+        <!-- Mobile floating toggle button -->
+        <button id="mobileMenuToggle" title="Abrir Menú">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+        </button>
+
+        <!-- ═══ SIDEBAR ════════════════════════════════════════════ -->
+        <div class="sidebar is-open" id="sidebar">
+
+            <!-- Rail: always visible -->
+            <div class="sidebar-rail">
+                <button class="rail-btn" id="sidebarToggle" title="Menú">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+                <div class="rail-divider"></div>
+                <button class="rail-btn is-active" data-zone="estructura" title="Estructura / Acero">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z">
+                        </path>
+                    </svg>
+                </button>
+                <button class="rail-btn" data-zone="refacciones" title="Refacciones / Accesorios">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
+                        </path>
+                    </svg>
+                </button>
+                <button class="rail-btn" data-zone="suspension" title="Suspensión y Neumática">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"></path>
+                        <path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42">
+                        </path>
+                    </svg>
+                </button>
+                <button class="rail-btn" data-zone="electrico" title="Eléctrico / Publicidad">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                    </svg>
+                </button>
+                <button class="rail-btn" data-zone="adicionales" title="Adicionales / Cambios">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="12" y1="18" x2="12" y2="12"></line>
+                        <line x1="9" y1="15" x2="15" y2="15"></line>
+                    </svg>
+                </button>
+                <div class="rail-spacer"></div>
+                <button class="rail-btn" id="sidebarCollapse" title="Colapsar">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </button>
+            </div><!-- /rail -->
+
+            <!-- Drawer: slides open -->
+            <div class="sidebar-drawer" id="sidebarDrawer">
+                <div class="drawer-inner">
+                    <!-- Zone title header -->
+                    <div class="drawer-header">
+                        <div class="drawer-zone-label" style="display:flex; justify-content:space-between; align-items:center;">
+                            <span>Configuración por Zona</span>
+                            <span id="drawerZoneCount" style="color:var(--brand-navy); font-weight:700;">0/28 items</span>
+                        </div>
+                        <div class="drawer-zone-name" id="drawerZoneName">
+                            <span class="drawer-zone-dot" id="drawerZoneDot" style="background: var(--orange);"></span>
+                            <span id="drawerZoneText" style="color: var(--orange);">Estructura / Acero</span>
+                        </div>
+                    </div>
+
+                    <!-- Estructura -->
+                    <div class="zone-items" data-zone="estructura">
+                        <div class="cfg-row is-placed" id="row-01" data-desc="KIT ACERO PLACAS PL40FT 3E-2JGOS DE PATINES, 1 RETRACTIL, ESTANDAR 1 (MODELO 2026)" data-id="9614243757" data-monday-url="https://transtools-team.monday.com/boards/4753135434/pulses/9614243757" title="Puedes agregarlo una vez más">
+                            <div class="cfg-num">01</div>
+                            <div class="cfg-desc"><strong>ACERO DE ESTRUCTURA PLACAS</strong></div>
+                            <div class="cfg-qty">1</div>
+                            <div class="cfg-link"></div>
+                            <button class="row-delete-btn" title="Borrar ítem de la lista">🗑️</button>
+                        </div>
+                        <div class="cfg-row is-placed" id="row-02" data-desc="KIT ACERO PERFILES PL40FT3E-2JGO DE PATINES, 1 RETRACTIL, ESTANDAR 1 (MODELO 2026)" data-id="9614298738" data-monday-url="https://transtools-team.monday.com/boards/4753135434/pulses/9614298738" title="Puedes agregarlo una vez más">
+                            <div class="cfg-num">02</div>
+                            <div class="cfg-desc"><strong>ACERO DE ESTRUCTURA PERFILES</strong></div>
+                            <div class="cfg-qty">1</div>
+                            <div class="cfg-link"></div>
+                            <button class="row-delete-btn" title="Borrar ítem de la lista">🗑️</button>
+                        </div>
+                        <div class="cfg-row is-excluded" id="row-03">
+                            <div class="cfg-num">03</div>
+                            <div class="cfg-desc"><strong>ACERO SUSPENSION</strong> <span class="no-incluye-badge">No incluye</span></div>
+                            <div class="cfg-qty">0</div>
+                            <div class="cfg-link"></div>
+                            <button class="row-delete-btn" title="Borrar ítem de la lista">🗑️</button>
+                        </div>
+                        <div class="cfg-row is-excluded" id="row-04">
+                            <div class="cfg-num">04</div>
+                            <div class="cfg-desc"><strong>ACERO BARRAS DE COLISION FIJO</strong> <span class="no-incluye-badge">No incluye</span></div>
+                            <div class="cfg-qty">0</div>
+                            <div class="cfg-link"></div>
+                            <button class="row-delete-btn" title="Borrar ítem de la lista">🗑️</button>
+                        </div>
+                        <div class="cfg-row is-placed" id="row-05" data-desc="KIT DE BARRAS DE COLISION PARA PL40FT 2 EJES (MODELO 2026) (OCHO SEGUROS)" data-id="9522886228" data-monday-url="https://transtools-team.monday.com/boards/4753135434/pulses/9522886228" title="Puedes agregarlo una vez más">
+                            <div class="cfg-num">05</div>
+                            <div class="cfg-desc"><strong>ACERO BARRAS DE COLISION ABATIBLE (ALUMINIO)</strong></div>
+                            <div class="cfg-qty">1</div>
+                            <div class="cfg-link"></div>
+                            <button class="row-delete-btn" title="Borrar ítem de la lista">🗑️</button>
+                        </div>
+                        <div class="cfg-row is-placed" id="row-06" data-desc="KIT DE PORTALLANTAS DOBLE" data-id="4959587661" data-monday-url="https://transtools-team.monday.com/boards/4753135434/pulses/4959587661" title="Puedes agregarlo una vez más">
+                            <div class="cfg-num">06</div>
+                            <div class="cfg-desc"><strong>ACERO PORTA LLANTAS</strong></div>
+                            <div class="cfg-qty">1</div>
+                            <div class="cfg-link"></div>
+                            <button class="row-delete-btn" title="Borrar ítem de la lista">🗑️</button>
+                        </div>
+                        <div class="cfg-row is-placed" id="row-07" data-desc="KIT DE CAJA DE HERRAMIENTA GRANDE (100CMX50CMX195CM) REDISEÑO (2026)" data-id="18348612115" data-monday-url="https://transtools-team.monday.com/boards/4753135434/pulses/18348612115" title="Puedes agregarlo una vez más">
+                            <div class="cfg-num">07</div>
+                            <div class="cfg-desc"><strong>ACERO CAJA DE HERRAMIENTA</strong></div>
+                            <div class="cfg-qty">1</div>
+                            <div class="cfg-link"></div>
+                            <button class="row-delete-btn" title="Borrar ítem de la lista">🗑️</button>
+                        </div>
+                        <div class="cfg-row is-placed" id="row-08" data-desc="KIT ESTANDAR CONCHA DE 120CM PARA PLATAFORMA (MODELO 2026)" data-id="9357179261" data-monday-url="https://transtools-team.monday.com/boards/4753135434/pulses/9357179261" title="Puedes agregarlo una vez más">
+                            <div class="cfg-num">08</div>
+                            <div class="cfg-desc"><strong>ACERO CONCHA</strong></div>
+                            <div class="cfg-qty">1</div>
+                            <div class="cfg-link"></div>
+                            <button class="row-delete-btn" title="Borrar ítem de la lista">🗑️</button>
+                        </div>
+                        <div class="cfg-row is-placed" id="row-09" data-desc="KIT ACERO PARA TAPA TRASERA CUANDO NO LLEVA BASE DE GANCHO" data-id="5418951592" data-monday-url="https://transtools-team.monday.com/boards/4753135434/pulses/5418951592" title="Puedes agregarlo una vez más">
+                            <div class="cfg-num">09</div>
+                            <div class="cfg-desc"><strong>ACERO TAPA POSTERIOR DE CHASIS</strong></div>
+                            <div class="cfg-qty">1</div>
+                            <div class="cfg-link"></div>
+                            <button class="row-delete-btn" title="Borrar ítem de la lista">🗑️</button>
+                        </div>
+
+                        <button class="btn-add-item" data-zone="estructura">+ Nuevo Item</button>
+                    </div>
+
+                    <!-- Refacciones -->
+                    <div class="zone-items" data-zone="refacciones">
+                        <div class="cfg-row is-placed" id="row-10" data-desc="KIT DE CONSUMIBLES PL-40FT" data-id="4946543422" data-monday-url="https://transtools-team.monday.com/boards/4753135434/pulses/4946543422" title="Puedes agregarlo una vez más">
+                            <div class="cfg-num">10</div>
+                            <div class="cfg-desc"><strong>CONSUMIBLES PLATAFORMA</strong></div>
+                            <div class="cfg-qty">1</div>
+                            <div class="cfg-link"></div>
+                            <button class="row-delete-btn" title="Borrar ítem de la lista">🗑️</button>
+                        </div>
+                        <div class="cfg-row is-exhausted" id="row-11" data-desc="KIT DE REFACCIONES PL40FT (ESTANDAR)" data-id="4855167705" data-monday-url="https://transtools-team.monday.com/boards/4753135434/pulses/4855167705" title="Ya no se pueden agregar más elementos de este item">
+                            <div class="cfg-num">11</div>
+                            <div class="cfg-desc"><strong>REFACCIONES DE PLATAFORMA</strong></div>
+                            <div class="cfg-qty">1</div>
+                            <div class="cfg-link"></div>
+                            <button class="row-delete-btn" title="Borrar ítem de la lista">🗑️</button>
+                        </div>
+                        <div class="cfg-row is-placed" id="row-12" data-desc="KIT 2 JUEGOS DE PATINES AMPRO TJ MULTIMONTAJE REFACCIONES" data-id="5111127544" data-monday-url="https://transtools-team.monday.com/boards/4753135434/pulses/5111127544" title="Puedes agregarlo una vez más">
+                            <div class="cfg-num">12</div>
+                            <div class="cfg-desc"><strong>PATINES, REFACCIONES</strong></div>
+                            <div class="cfg-qty">1</div>
+                            <div class="cfg-link"></div>
+                            <button class="row-delete-btn" title="Borrar ítem de la lista">🗑️</button>
+                        </div>
+                        <div class="cfg-row is-placed" id="row-13" data-desc="KIT PISO DE MADERA Y LAM. ANTIDERRAPANTE CAL. 14 PARA PL40FT" data-id="5056402489" data-monday-url="https://transtools-team.monday.com/boards/4753135434/pulses/5056402489" title="Puedes agregarlo una vez más">
+                            <div class="cfg-num">13</div>
+                            <div class="cfg-desc"><strong>PISO</strong></div>
+                            <div class="cfg-qty">1</div>
+                            <div class="cfg-link"></div>
+                            <button class="row-delete-btn" title="Borrar ítem de la lista">🗑️</button>
+                        </div>
+                        <div class="cfg-row is-placed" id="row-16" data-desc="KIT DE PINTURA PPG PLATAFORMA 40FT, 3 EJES" data-id="9536141949" data-monday-url="https://transtools-team.monday.com/boards/4753135434/pulses/9536141949" title="Puedes agregarlo una vez más">
+                            <div class="cfg-num">16</div>
+                            <div class="cfg-desc"><strong>PINTURA</strong></div>
+                            <div class="cfg-qty">1</div>
+                            <div class="cfg-link"></div>
+                            <button class="row-delete-btn" title="Borrar ítem de la lista">🗑️</button>
+                        </div>
+                        <div class="cfg-row is-excluded" id="row-20">
+                            <div class="cfg-num">20</div>
+                            <div class="cfg-desc"><strong>GANCHO PARA JALON, REFACCIONES</strong> <span class="no-incluye-badge">No incluye</span></div>
+                            <div class="cfg-qty">0</div>
+                            <div class="cfg-link"></div>
+                            <button class="row-delete-btn" title="Borrar ítem de la lista">🗑️</button>
+                        </div>
+                        <div class="cfg-row is-placed" id="row-22" data-desc="KIT RIEL DE WINCHES FABRICADO (UNA PIEZA DE 1.83 MTS.)" data-id="9465308565" data-monday-url="https://transtools-team.monday.com/boards/4753135434/pulses/9465308565" title="Puedes agregarlo una vez más">
+                            <div class="cfg-num">22</div>
+                            <div class="cfg-desc"><strong>RIEL PARA WINCHES</strong></div>
+                            <div class="cfg-qty">6.4</div>
+                            <div class="cfg-link"></div>
+                            <button class="row-delete-btn" title="Borrar ítem de la lista">🗑️</button>
+                        </div>
+                        <div class="cfg-row is-placed" id="row-23" data-desc="KIT DE WINCHES (10 PIEZAS) 3 EJES" data-id="5721336870" data-monday-url="https://transtools-team.monday.com/boards/4753135434/pulses/5721336870" title="Puedes agregarlo una vez más">
+                            <div class="cfg-num">23</div>
+                            <div class="cfg-desc"><strong>WINCHES, REFACCIONES</strong></div>
+                            <div class="cfg-qty">1</div>
+                            <div class="cfg-link"></div>
+                            <button class="row-delete-btn" title="Borrar ítem de la lista">🗑️</button>
+                        </div>
+
+                        <button class="btn-add-item" data-zone="refacciones">+ Nuevo Item</button>
+                    </div>
+
+                    <!-- Suspensión -->
+                    <div class="zone-items" data-zone="suspension">
+                        <div class="cfg-row is-placed" id="row-14" data-desc="KIT DE SUSPENSION AIRE AMPRO" data-id="7503778589" data-monday-url="https://transtools-team.monday.com/boards/4753135434/pulses/7503778589" title="Puedes agregarlo una vez más">
+                            <div class="cfg-num">14</div>
+                            <div class="cfg-desc"><strong>SUSPENSION DE AIRE, REFACCIONES</strong></div>
+                            <div class="cfg-qty">3</div>
+                            <div class="cfg-link"></div>
+                            <button class="row-delete-btn" title="Borrar ítem de la lista">🗑️</button>
+                        </div>
+                        <div class="cfg-row is-placed" id="row-15" data-desc="KIT DE EJES GRASA 77.5 BIRLO CORTO TAPA NEGRA AMPRO" data-id="5110666707" data-monday-url="https://transtools-team.monday.com/boards/4753135434/pulses/5110666707" title="Puedes agregarlo una vez más">
+                            <div class="cfg-num">15</div>
+                            <div class="cfg-desc"><strong>EJES</strong></div>
+                            <div class="cfg-qty">3</div>
+                            <div class="cfg-link"></div>
+                            <button class="row-delete-btn" title="Borrar ítem de la lista">🗑️</button>
+                        </div>
+                        <div class="cfg-row is-placed" id="row-17" data-desc="KIT DE MANITAS FRENTE (SENCILLAS ROSCABLES PHILLIPS)" data-id="4995053419" data-monday-url="https://transtools-team.monday.com/boards/4753135434/pulses/4995053419" title="Puedes agregarlo una vez más">
+                            <div class="cfg-num">17</div>
+                            <div class="cfg-desc"><strong>SISTEMA NEUMATICO, MANITAS</strong></div>
+                            <div class="cfg-qty">1</div>
+                            <div class="cfg-link"></div>
+                            <button class="row-delete-btn" title="Borrar ítem de la lista">🗑️</button>
+                        </div>
+                        <div class="cfg-row is-placed" id="row-18" data-desc="KIT DE SISTEMA DE AIRE DE FRENOS CON ABS HALDEX, 3 EJES (2M,4S)" data-id="18202976390" data-monday-url="https://transtools-team.monday.com/boards/4753135434/pulses/18202976390" title="Puedes agregarlo una vez más">
+                            <div class="cfg-num">18</div>
+                            <div class="cfg-desc"><strong>SISTEMA NEUMATICO, FRENOS</strong></div>
+                            <div class="cfg-qty">1</div>
+                            <div class="cfg-link"></div>
+                            <button class="row-delete-btn" title="Borrar ítem de la lista">🗑️</button>
+                        </div>
+                        <div class="cfg-row is-placed" id="row-19" data-desc="KIT SISTEMA DE AIRE PARA SUSPENSIÓN 3 EJES, UN RETRACTIL (VALVULA DE ESTUFA)" data-id="18216440768" data-monday-url="https://transtools-team.monday.com/boards/4753135434/pulses/18216440768" title="Puedes agregarlo una vez más">
+                            <div class="cfg-num">19</div>
+                            <div class="cfg-desc"><strong>SISTEMA NEUMATICO, SUSPENSION</strong></div>
+                            <div class="cfg-qty">1</div>
+                            <div class="cfg-link"></div>
+                            <button class="row-delete-btn" title="Borrar ítem de la lista">🗑️</button>
+                        </div>
+                        <div class="cfg-row is-placed" id="row-27" data-desc="KIT DE RINES AMPRO ACERO 24.5 -1 EJE" data-id="4920022916" data-monday-url="https://transtools-team.monday.com/boards/4753135434/pulses/4920022916" title="Puedes agregarlo una vez más">
+                            <div class="cfg-num">27</div>
+                            <div class="cfg-desc"><strong>RINES</strong></div>
+                            <div class="cfg-qty">3</div>
+                            <div class="cfg-link"></div>
+                            <button class="row-delete-btn" title="Borrar ítem de la lista">🗑️</button>
+                        </div>
+                        <div class="cfg-row is-placed" id="row-28" data-desc="KIT DE LLANTA CHINA 11R/ 24.5 - 1 EJE" data-id="4919898235" data-monday-url="https://transtools-team.monday.com/boards/4753135434/pulses/4919898235" title="Puedes agregarlo una vez más">
+                            <div class="cfg-num">28</div>
+                            <div class="cfg-desc"><strong>LLANTAS</strong></div>
+                            <div class="cfg-qty">3</div>
+                            <div class="cfg-link"></div>
+                            <button class="row-delete-btn" title="Borrar ítem de la lista">🗑️</button>
+                        </div>
+
+                        <button class="btn-add-item" data-zone="suspension">+ Nuevo Item</button>
+                    </div>
+
+                    <!-- Eléctrico -->
+                    <div class="zone-items" data-zone="electrico">
+                        <div class="cfg-row is-placed" id="row-21" data-desc="KIT DE SISTEMA ELECTRICO PL40FT-PLAFONES REDONDOS (6 PZAS.) BASE NEGRA PHILLIPS (MODELO 2026)" data-id="9357607246" data-monday-url="https://transtools-team.monday.com/boards/4753135434/pulses/9357607246" title="Puedes agregarlo una vez más">
+                            <div class="cfg-num">21</div>
+                            <div class="cfg-desc"><strong>SISTEMA ELECTRICO</strong></div>
+                            <div class="cfg-qty">1</div>
+                            <div class="cfg-link"></div>
+                            <button class="row-delete-btn" title="Borrar ítem de la lista">🗑️</button>
+                        </div>
+                        <div class="cfg-row is-placed" id="row-24" data-desc="KIT DE PUBLICIDAD PL 40FT LINEA AMFORCE CON CONCHA (MODELO 2026)" data-id="9804593976" data-monday-url="https://transtools-team.monday.com/boards/4753135434/pulses/9804593976" title="Puedes agregarlo una vez más">
+                            <div class="cfg-num">24</div>
+                            <div class="cfg-desc"><strong>PUBLICIDAD</strong></div>
+                            <div class="cfg-qty">1</div>
+                            <div class="cfg-link"></div>
+                            <button class="row-delete-btn" title="Borrar ítem de la lista">🗑️</button>
+                        </div>
+                        <div class="cfg-row is-placed" id="row-25" data-desc="KIT DE BANDEROLAS (DOS PIEZAS)" data-id="5641553924" data-monday-url="https://transtools-team.monday.com/boards/4753135434/pulses/5641553924" title="Puedes agregarlo una vez más">
+                            <div class="cfg-num">25</div>
+                            <div class="cfg-desc"><strong>BANDEROLAS</strong></div>
+                            <div class="cfg-qty">1</div>
+                            <div class="cfg-link"></div>
+                            <button class="row-delete-btn" title="Borrar ítem de la lista">🗑️</button>
+                        </div>
+                        <div class="cfg-row is-excluded" id="row-26">
+                            <div class="cfg-num">26</div>
+                            <div class="cfg-desc"><strong>LONA PRECAUCION DOBLE SEMI REMOLQUE</strong> <span class="no-incluye-badge">No incluye</span></div>
+                            <div class="cfg-qty">0</div>
+                            <div class="cfg-link"></div>
+                            <button class="row-delete-btn" title="Borrar ítem de la lista">🗑️</button>
+                        </div>
+
+                        <button class="btn-add-item" data-zone="electrico">+ Nuevo Item</button>
+                    </div>
+
+                    <!-- Adicionales -->
+                    <div class="zone-items" data-zone="adicionales">
+                        <button class="btn-add-item" data-zone="adicionales">+ Nuevo Item</button>
+                    </div>
+                </div><!-- /drawer-inner -->
+            </div><!-- /drawer -->
+        </div><!-- /sidebar -->
+
+        <div class="main-container">
+
+            <!-- HEADER -->
+            <div class="header">
+                <div class="logo-area">
+                    <button id="headerMenuToggle" class="header-menu-btn" title="Menú">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    </button>
+                    <img src="img/transtools_white.png" alt="Transtools Logo" class="logo-img">
+                </div>
+                <div class="header-title">
+                    <div class="ht-label">Orden de Producción</div>
+                    <div class="ht-num">200963 &nbsp;·&nbsp; PLES &nbsp;·&nbsp; KWS - TEMOANCHAN
+                    </div>
+                </div>
+                <div class="header-status">▶ En Producción</div>
+                <div class="header-dates">
+                    <div class="hd-row">Fecha Contrato: <span contenteditable="true">02/Oct/26</span></div>
+                    <div class="hd-row">Fecha Entrega: <span contenteditable="true">16/Oct/26</span></div>
+                    <div class="hd-row">Última Actualización: <span contenteditable="true">06/Oct/26 15:45</span></div>
+                    <button id="adminSaveBtn" class="admin-save-btn">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                            <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                            <polyline points="7 3 7 8 15 8"></polyline>
+                        </svg>
+                        Guardar
+                    </button>
+                </div>
+            </div>
+
+            <!-- CLIENT STRIP -->
+            <div class="client-strip">
+                <div class="cs-cell">
+                    <div class="cs-key">Cliente</div>
+                    <div class="cs-val">KWS - TRANSPORTES TAMOANCHAN</div>
+                </div>
+                <div class="cs-cell">
+                    <div class="cs-key">Unidades a Fábricar</div>
+                    <div class="cs-val">1 Unidad</div>
+                </div>
+                <div class="cs-cell">
+                    <div class="cs-key">Cód. Interno</div>
+                    <div class="cs-val code">PLES-40F-3AMF-1-C1101</div>
+                </div>
+                <div class="cs-cell">
+                    <div class="cs-key">Color</div>
+                    <div class="cs-val" style="display:flex; align-items:center; gap:8px;">
+                        <div style="width:14px; height:14px; border-radius:50%; background:#FFFFFF; border:2px solid #64748b; box-shadow:0 2px 4px rgba(0,0,0,0.15);">
+                        </div>
+                        <span style="color:#1e293b; font-weight:700;">BLANCO</span>
+                    </div>
+                </div>
+
+                <div class="cs-cell">
+                    <div class="cs-key">Grabado</div>
+                    <div class="cs-val" style="display:flex; align-items:center; gap:12px;">
+                        <span>TTA</span>
+                        <button onclick="document.getElementById('grabadoModal').style.display='flex'" style="display:inline-flex; align-items:center; gap:6px; background:#f1f5f9; border:1px solid #cbd5e1; border-radius:6px; padding:4px 10px; font-family:'Barlow Condensed', sans-serif; font-weight:700; font-size:11px; color:#1e293b; cursor:pointer; text-transform:uppercase; transition:all 0.2s;" onmouseover="this.style.background='#e2e8f0'; this.style.borderColor='#94a3b8';" onmouseout="this.style.background='#f1f5f9'; this.style.borderColor='#cbd5e1';">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                <polyline points="21 15 16 10 5 21"></polyline>
+                            </svg>
+                            Ver Logo
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PRODUCT BANNER -->
+            <div class="product-banner">
+                <div class="pb-name">PLATAFORMA ESTANDAR, 40FT, 3 EJES, 2JGOS PATIN, 1 RETRACTIL, PISO MADERA/LAMINA 14,
+                    CONCHA 1.20 M, CAJA GRANDE, RIN/ACERO 24.5, LLANTA/CHINA 24.5, TITANIUM AMFORCE</div>
+                <div class="pb-dims">
+                    <div class="pb-dim">
+                        <div class="pb-dk">Longitud</div>
+                        <div class="pb-dv">12.19 Mtrs.</div>
+                    </div>
+                    <div class="pb-dim">
+                        <div class="pb-dk">Ancho</div>
+                        <div class="pb-dv">2.6 Mtrs.</div>
+                    </div>
+                    <div class="pb-dim">
+                        <div class="pb-dk">Alto</div>
+                        <div class="pb-dv">2.72 Mtrs.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTENT AREA -->
+            <div class="content-area" id="contentArea">
+
+                <!-- OBSERVATIONS -->
+                <div class="obs-box" style="margin: 20px 20px 10px 20px;">
+                    <div class="obs-title">⚠ Observaciones Especiales — Leer antes de iniciar</div>
+                    <div class="obs-item">1.- LLEVA UN EJE RETRACTIL</div>
+                    <div class="obs-item">2.- GRAVADO DE LOGO EN VARAS Y TAPA TRASERA</div>
+                </div>
+                <div class="obs-box" style="margin: 20px 20px 10px 20px;">
+                    <div class="obs-title">⚠ Equipamiento Adicional</div>
+
+                </div>
+
+
+                <!-- VIEWS (Sticky via CSS) -->
+                <div class="views-panel active-adicionales">
+                    <div class="views-grid">
+                        <div class="view-cell vc-isometrica" data-view="isometrica">
+                            <div class="vc-label">Vista Isométrica</div>
+                            <div class="img-wrapper" data-base-width="732">
+                                <img src="img/Vista Isometrica.png" alt="Vista Isométrica">
+                                <svg class="svg-overlay"></svg>
+                            </div>
+                        </div>
+
+                        <div class="view-cell vc-inferior" data-view="inferior">
+                            <div class="vc-label">Inferior</div>
+                            <div class="img-wrapper" data-base-width="732">
+                                <img src="img/Vista Inferior.png" alt="Vista Inferior">
+                                <svg class="svg-overlay"></svg>
+                            </div>
+                        </div>
+                        <div class="view-cell vc-frontal-der" data-view="lateral-der">
+                            <div class="vc-label">Lateral Der.</div>
+                            <div class="img-wrapper" data-base-width="732">
+                                <img src="img/Vista Derecha.png" alt="Vista Lateral Derecha">
+                                <svg class="svg-overlay"></svg>
+                            </div>
+                        </div>
+                        <div class="view-cell vc-frontal" data-view="frontal">
+                            <div class="vc-label">Frontal</div>
+                            <div class="img-wrapper" data-base-width="732">
+                                <img src="img/Vista Frontal.png" alt="Vista Frontal">
+                                <svg class="svg-overlay"></svg>
+                            </div>
+                        </div>
+                        <div class="view-cell vc-posterior" data-view="posterior">
+                            <div class="vc-label">Posterior</div>
+                            <div class="img-wrapper" data-base-width="732">
+                                <img src="img/Vista Posterior.png" alt="Vista Posterior">
+                                <svg class="svg-overlay"></svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CHECKLIST DE APROBACIÓN -->
+                <div style="margin: 20px; border:1px solid var(--border); border-radius:5px; overflow:hidden;">
+                    <div style="background:var(--navy); padding:6px 12px; font-family:'Barlow Condensed'; font-weight:700; font-size:11px; color:white; letter-spacing:1px; text-transform:uppercase;">
+                        Checklist de Aprobación Final</div>
+                    <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:0;">
+                        <div style="padding:8px 12px; border-right:1px solid var(--border2);">
+                            <div style="font-size:10px; font-weight:700; color:#F87171; text-transform:uppercase; letter-spacing:1px; margin-bottom:4px;">
+                                Ventas</div>
+                            <div style="display:flex; align-items:center; gap:6px; font-size:10px; color:var(--dim); margin-bottom:2px;">
+                                <div style="width:12px;height:12px;border:1px solid var(--border);border-radius:2px;flex-shrink:0;">
+                                </div>Pedido confirmado
+                            </div>
+                            <div style="display:flex; align-items:center; gap:6px; font-size:10px; color:var(--dim);">
+                                <div style="width:12px;height:12px;border:1px solid var(--border);border-radius:2px;flex-shrink:0;">
+                                </div>Logo entregado
+                            </div>
+                        </div>
+                        <div style="padding:8px 12px; border-right:1px solid var(--border2);">
+                            <div style="font-size:10px; font-weight:700; color:var(--blue); text-transform:uppercase; letter-spacing:1px; margin-bottom:4px;">
+                                Ingeniería</div>
+                            <div style="display:flex; align-items:center; gap:6px; font-size:10px; color:var(--dim); margin-bottom:2px;">
+                                <div style="width:12px;height:12px;border:1px solid var(--border);border-radius:2px;flex-shrink:0;">
+                                </div>Vistas validadas
+                            </div>
+                            <div style="display:flex; align-items:center; gap:6px; font-size:10px; color:var(--dim);">
+                                <div style="width:12px;height:12px;border:1px solid var(--border);border-radius:2px;flex-shrink:0;">
+                                </div>Grabado aprobado
+                            </div>
+                        </div>
+                        <div style="padding:8px 12px; border-right:1px solid var(--border2);">
+                            <div style="font-size:10px; font-weight:700; color:var(--green); text-transform:uppercase; letter-spacing:1px; margin-bottom:4px;">
+                                Almacén</div>
+                            <div style="display:flex; align-items:center; gap:6px; font-size:10px; color:var(--dim); margin-bottom:2px;">
+                                <div style="width:12px;height:12px;border:1px solid var(--border);border-radius:2px;flex-shrink:0;">
+                                </div>Kits surtidos
+                            </div>
+                            <div style="display:flex; align-items:center; gap:6px; font-size:10px; color:var(--dim);">
+                                <div style="width:12px;height:12px;border:1px solid var(--border);border-radius:2px;flex-shrink:0;">
+                                </div>Ejes ×3 en piso
+                            </div>
+                        </div>
+                        <div style="padding:8px 12px;">
+                            <div style="font-size:10px; font-weight:700; color:var(--orange); text-transform:uppercase; letter-spacing:1px; margin-bottom:4px;">
+                                Producción</div>
+                            <div style="display:flex; align-items:center; gap:6px; font-size:10px; color:var(--dim); margin-bottom:2px;">
+                                <div style="width:12px;height:12px;border:1px solid var(--border);border-radius:2px;flex-shrink:0;">
+                                </div>Retráctil ×1 OK
+                            </div>
+                            <div style="display:flex; align-items:center; gap:6px; font-size:10px; color:var(--dim);">
+                                <div style="width:12px;height:12px;border:1px solid var(--border);border-radius:2px;flex-shrink:0;">
+                                </div>Prueba neumática
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- /content-area -->
+
+            <!-- FOOTER spans full width of main container -->
+            <div class="footer">
+                <div class="footer-addr">
+                    <div class="fa-web">
+                        <a href="https://www.transtools.com.mx" target="_blank">www.transtools.com.mx</a>
+                        <span id="adminLockToggle" class="admin-lock" title="Modo Administrador"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></span>
+                    </div>
+                </div>
+                <div class="footer-sign">
+                    <div class="fs-role">Responsable</div>
+                    <div class="fs-line"></div>
+                    <div class="fs-name">Ing. Fernando Anzures Aguilar</div>
+                </div>
+                <div class="footer-sign">
+                    <div class="fs-role">Revisó</div>
+                    <div class="fs-line"></div>
+                    <div class="fs-name">Ing. Fernando Anzures Aguilar</div>
+                </div>
+                <div class="footer-sign">
+                    <div class="fs-role">Autorizó</div>
+                    <div class="fs-line"></div>
+                    <div class="fs-name">Ing. Manuel Aguilar Cruz</div>
+                </div>
+            </div>
+
+        </div><!-- /main-container -->
+
+    </div><!-- end page -->
+
+    <script>
+        window.addEventListener('load', () => {
+            // ── STATE ──────────────────────────
+            let opState = {};
+            const CACHE_KEY = 'op_200963_temoanchan_v1';
+
+            const pulseMapping = {
+                'KIT ACERO PLACAS PL40FT 3E-2JGOS DE PATINES, 1 RETRACTIL, ESTANDAR 1 (MODELO 2026)': '9614243757',
+                'KIT ACERO PERFILES PL40FT3E-2JGO DE PATINES, 1 RETRACTIL, ESTANDAR 1 (MODELO 2026)': '9614298738',
+                'KIT DE BARRAS DE COLISION PARA PL40FT 2 EJES (MODELO 2026) (OCHO SEGUROS)': '9522886228',
+                'KIT DE PORTALLANTAS DOBLE': '4959587661',
+                'KIT DE CAJA DE HERRAMIENTA GRANDE (100CMX50CMX195CM) REDISEÑO (2026)': '18348612115',
+                'KIT ESTANDAR CONCHA DE 120CM PARA PLATAFORMA (MODELO 2026)': '9357179261',
+                'KIT ACERO PARA TAPA TRASERA CUANDO NO LLEVA BASE DE GANCHO': '5418951592',
+                'KIT DE CONSUMIBLES PL-40FT': '4946543422',
+                'KIT DE REFACCIONES PL40FT (ESTANDAR)': '4855167705',
+                'KIT 2 JUEGOS DE PATINES AMPRO TJ MULTIMONTAJE REFACCIONES': '5111127544',
+                'KIT PISO DE MADERA Y LAM. ANTIDERRAPANTE CAL. 14 PARA PL40FT': '5056402489',
+                'KIT DE SUSPENSION AIRE AMPRO': '7503778589',
+                'KIT DE EJES GRASA 77.5 BIRLO CORTO TAPA NEGRA AMPRO': '5110666707',
+                'KIT DE PINTURA PPG PLATAFORMA 40FT, 3 EJES': '9536141949',
+                'KIT DE MANITAS FRENTE (SENCILLAS ROSCABLES PHILLIPS)': '4995053419',
+                'KIT DE SISTEMA DE AIRE DE FRENOS CON ABS HALDEX, 3 EJES (2M,4S)': '18202976390',
+                'KIT SISTEMA DE AIRE PARA SUSPENSIÓN 3 EJES, UN RETRACTIL (VALVULA DE ESTUFA)': '18216440768',
+                'KIT DE SISTEMA ELECTRICO PL40FT-PLAFONES REDONDOS (6 PZAS.) BASE NEGRA PHILLIPS (MODELO 2026)': '9357607246',
+                'KIT RIEL DE WINCHES FABRICADO (UNA PIEZA DE 1.83 MTS.)': '9465308565',
+                'KIT DE WINCHES (10 PIEZAS) 3 EJES': '5721336870',
+                'KIT DE PUBLICIDAD PL 40FT LINEA AMFORCE CON CONCHA (MODELO 2026)': '9804593976',
+                'KIT DE BANDEROLAS (DOS PIEZAS)': '5641553924',
+                'KIT DE RINES AMPRO ACERO 24.5 -1 EJE': '4920022916',
+                'KIT DE LLANTA CHINA 11R/ 24.5 - 1 EJE': '4919898235'
+            };
+
+            const saveToCache = () => {
+                localStorage.setItem(CACHE_KEY, JSON.stringify(opState));
+            };
+
+            const loadFromCache = () => {
+                const cached = localStorage.getItem(CACHE_KEY);
+                if (cached) {
+                    try {
+                        const parsed = JSON.parse(cached);
+                        // Merge cached data into current session
+                        Object.assign(opState, parsed);
+                    } catch (e) { console.error("Cache corrupted"); }
+                }
+            };
+
+            try {
+                const rawData = document.getElementById('op-data').textContent.trim();
+                if (rawData) opState = JSON.parse(rawData);
+            } catch (err) {
+                console.error("Failed to parse existing OP configuration data:", err);
+            }
+
+            // Los dots están deshabilitados; ignoramos el caché para
+            // evitar que posiciones antiguas marquen items como tachados.
+            localStorage.removeItem(CACHE_KEY);
+            // loadFromCache() — desactivado intencionalmente
+
+            let activeItemNum = null;
+            let dragTarget = null; // { num, index, type: 'dot'|'node', cell }
+            let isEditMode = false;
+
+            // ── DOM ELEMENTS ───────────────────
+            const viewsPanel = document.querySelector('.views-panel');
+            const viewCells = document.querySelectorAll('.view-cell');
+            const configRows = document.querySelectorAll('.cfg-row');
+
+            const tooltip = document.createElement('div');
+            tooltip.className = 'callout-tooltip';
+            document.body.appendChild(tooltip);
+
+            // Note: actionMenu is now absolute, positioned inside the relative views
+            const actionMenu = document.createElement('div');
+            actionMenu.className = 'marker-actions';
+            actionMenu.style.display = 'none';
+            actionMenu.innerHTML = `
+        <button class="action-btn delete" title="Borrar">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+        </button>
+        <button class="action-btn move" title="Reset Línea">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.63 4.36A9 9 0 0 0 20.49 15"></path></svg>
+        </button>
+        <a class="action-btn monday" id="btnMondayLink" target="_blank" title="Ver en Monday">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/>
+          </svg>
+          <span style="font-family:'Barlow Condensed', sans-serif; letter-spacing:0.5px;">MONDAY</span>
+        </a>
+      `;
+            document.body.appendChild(actionMenu);
+
+            let activeMarkerId = null; // Track currently open menu
+            let activeMarkerIndex = null;
+
+            // ── HELPERS ───────────────────────
+            const getZoneClass = (num) => {
+                const row = document.getElementById(`row-${num}`);
+                if (!row) return '';
+                const zoneItems = row.closest('.zone-items');
+                return zoneItems ? zoneItems.dataset.zone : '';
+            };
+
+            const updateRowStatus = () => {
+                configRows.forEach(row => {
+                    const num = row.querySelector('.cfg-num').textContent.trim();
+                    const count = opState[num] ? opState[num].length : 0;
+
+                    row.classList.remove('is-placed', 'is-exhausted');
+                    row.removeAttribute('title');
+
+                    if (count === 1) {
+                        row.classList.add('is-placed');
+                        row.title = "Puedes agregarlo una vez más";
+                    } else if (count >= 2) {
+                        row.classList.add('is-exhausted');
+                        row.title = "Ya no se pueden agregar más elementos de este item";
+                    }
+                });
+                saveToCache();
+            };
+
+            const initMondayLinks = (row) => {
+                const linkContainer = row.querySelector('.cfg-link');
+                if (!linkContainer) return;
+
+                // Clear any existing links (prevents duplicate or old hardcoded links)
+                linkContainer.innerHTML = '';
+
+                const rowDesc = row.dataset.desc || '';
+                const fullText = row.querySelector('.cfg-desc') ? row.querySelector('.cfg-desc').textContent + ' ' + rowDesc : rowDesc;
+                const kitIdx = fullText.toUpperCase().indexOf('KIT');
+                const searchPart = kitIdx !== -1 ? fullText.substring(kitIdx).trim() : fullText.trim();
+                const cleanTerm = searchPart.replace(/\s+/g, ' '); // Normalize spaces
+
+                let url = "";
+                const mappingKey = Object.keys(pulseMapping).find(k => cleanTerm.includes(k) || k.includes(cleanTerm));
+
+                // Fallback to idKit check
+                const idKit = row.dataset.id;
+                let finalPulseId = "";
+
+                if (mappingKey) {
+                    finalPulseId = pulseMapping[mappingKey];
+                } else if (idKit && idKit !== '—' && idKit.trim().length > 0) {
+                    finalPulseId = idKit.trim();
+                }
+
+                if (!finalPulseId) return;
+
+                const url_base = `https://transtools-team.monday.com/boards/4753135434/pulses/`;
+                row.dataset.mondayUrl = url_base + finalPulseId;
+            };
+
+            const initRowActions = (row) => {
+                if (row.querySelector('.row-delete-btn')) return;
+                const delBtn = document.createElement('button');
+                delBtn.className = 'row-delete-btn';
+                delBtn.innerHTML = '🗑️';
+                delBtn.title = "Borrar ítem de la lista";
+                delBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    if (confirm("¿Borrar este ítem de la configuración?")) {
+                        const num = row.querySelector('.cfg-num').textContent.trim();
+                        delete opState[num];
+                        row.remove();
+                        renderDots();
+                        updateRowStatus();
+                    }
+                };
+                row.appendChild(delBtn);
+            };
+
+            configRows.forEach(row => {
+                initMondayLinks(row);
+                initRowActions(row);
+            });
+
+            const renderDots = () => {
+                document.querySelectorAll('.callout-dot, .target-node').forEach(d => d.remove());
+                document.querySelectorAll('.target-node').forEach(d => d.remove());
+                document.querySelectorAll('.svg-overlay').forEach(svg => svg.innerHTML = '');
+
+                Object.keys(opState).forEach(num => {
+                    opState[num].forEach((marker, index) => {
+                        const cell = document.querySelector(`.view-cell[data-view="${marker.view}"]`);
+                        if (!cell) return;
+                        const targetContainer = cell.querySelector('.img-wrapper');
+                        if (!targetContainer) return;
+
+                        const svg = targetContainer.querySelector('.svg-overlay');
+                        const zone = getZoneClass(num);
+
+                        // Create 90-degree orthogonal line (L-shape)
+                        const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                        // Routing: Start at dot (x,y), draw horizontal to tx, draw vertical to ty
+                        const dStr = `M ${marker.x} ${marker.y} L ${marker.tx} ${marker.y} L ${marker.tx} ${marker.ty}`;
+                        // The SVG coordinate system in our case is set to 100x100 (percentage based) 
+                        // wait, we don't have viewBox on the SVG... let's check how the lines are drawn.
+                        // Ah, the points are in %, which works for x1/y1 attributes but not directly inside 'd'.
+                        // For 'd', if we just pass numbers, it assumes pixels/user units, not %.
+                        // Let's use two <line> elements to simulate the orthogonal elbow instead of <path> to keep % compatibility.
+
+                        const line1 = document.createElementNS("http://www.w3.org/2000/svg", "line");
+                        line1.setAttribute("x1", `${marker.x}%`);
+                        line1.setAttribute("y1", `${marker.y}%`);
+                        line1.setAttribute("x2", `${marker.tx}%`);
+                        line1.setAttribute("y2", `${marker.y}%`);
+                        line1.className.baseVal = `leader-line ${zone}`;
+                        line1.setAttribute('data-num', num);
+
+                        const line2 = document.createElementNS("http://www.w3.org/2000/svg", "line");
+                        line2.setAttribute("x1", `${marker.tx}%`);
+                        line2.setAttribute("y1", `${marker.y}%`);
+                        line2.setAttribute("x2", `${marker.tx}%`);
+                        line2.setAttribute("y2", `${marker.ty}%`);
+                        line2.className.baseVal = `leader-line ${zone}`;
+                        line2.setAttribute('data-num', num);
+
+                        const zoneColors = {
+                            'estructura': '#f97316',
+                            'suspension': '#78350f',
+                            'refacciones': '#9333ea',
+                            'electrico': '#16a34a',
+                            'adicionales': '#b91c1c'
+                        };
+                        const strokeColor = zoneColors[zone] || '#1e293b';
+                        line1.style.stroke = strokeColor;
+                        line2.style.stroke = strokeColor;
+
+                        svg.appendChild(line1);
+                        svg.appendChild(line2);
+
+                        const dot = document.createElement('div');
+                        const row = document.getElementById(`row-${num}`);
+                        const isUnconfirmed = row && row.classList.contains('is-unconfirmed');
+                        dot.className = `callout-dot ${zone} ${isUnconfirmed ? 'is-unconfirmed' : ''}`;
+                        dot.style.top = `${marker.y}%`;
+                        dot.style.left = `${marker.x}%`;
+                        dot.textContent = num;
+                        dot.style.cursor = 'move';
+                        dot.setAttribute('data-num', num);
+                        targetContainer.appendChild(dot);
+
+                        const node = document.createElement('div');
+                        node.className = `target-node ${zone}`;
+                        node.style.top = `${marker.ty}%`;
+                        node.style.left = `${marker.tx}%`;
+                        node.setAttribute('data-num', num);
+                        targetContainer.appendChild(node);
+
+                        dot.addEventListener('mouseenter', () => {
+                            const titleElem = row.querySelector('.cfg-desc strong');
+                            const qtyElem = row.querySelector('.cfg-qty');
+                            const fullDesc = row.dataset.desc || (row.querySelector('.cfg-desc') ? row.querySelector('.cfg-desc').textContent : '');
+
+                            const title = titleElem ? titleElem.textContent : 'Componente';
+                            const qty = qtyElem ? qtyElem.textContent : '1';
+                            const kitSuffix = parseInt(qty) === 1 ? 'kit' : 'kits';
+
+                            const unconfirmedWarning = row.classList.contains('is-unconfirmed') ?
+                                `<br><span style="color:#f97316; font-weight:700;">⚠ POR CONFIRMAR</span>` : '';
+
+                            tooltip.innerHTML = `<strong>${num} - ${title}</strong>${unconfirmedWarning}<br>${fullDesc}<br>Cantidad: ${qty} ${kitSuffix}`;
+                            tooltip.style.opacity = '1';
+
+                            const rect = dot.getBoundingClientRect();
+                            const centerX = rect.left + rect.width / 2;
+                            tooltip.style.left = `${centerX}px`;
+                            tooltip.style.top = `${rect.top - 8}px`; // Extra spacing
+
+                            // Adjust for boundaries
+                            requestAnimationFrame(() => {
+                                const tRect = tooltip.getBoundingClientRect();
+                                let offset = 0;
+                                const margin = 15;
+                                if (tRect.left < margin) {
+                                    offset = margin - tRect.left;
+                                } else if (tRect.right > window.innerWidth - margin) {
+                                    offset = window.innerWidth - margin - tRect.right;
+                                }
+                                tooltip.style.setProperty('--arrow-offset', `${offset}px`);
+                            });
+                        });
+                        dot.addEventListener('mouseleave', () => {
+                            tooltip.style.opacity = '0';
+                            tooltip.style.setProperty('--arrow-offset', '0px');
+                        });
+
+                        dot.addEventListener('mousedown', (e) => {
+                            if (!isEditMode) return;
+                            if (e.button !== 0) return;
+                            e.stopPropagation(); e.preventDefault();
+                            dragTarget = { num, index, type: 'dot', cell };
+                        });
+                        node.addEventListener('mousedown', (e) => {
+                            if (!isEditMode) return;
+                            if (e.button !== 0) return;
+                            e.stopPropagation(); e.preventDefault();
+                            dragTarget = { num, index, type: 'node', cell };
+                        });
+
+                        dot.addEventListener('click', (e) => {
+                            e.stopPropagation();
+
+                            const isEdit = document.body.classList.contains('is-edit-mode');
+
+                            // Find row and identify zone
+                            const row = document.getElementById(`row-${num}`);
+                            if (row) {
+                                const zone = getZoneClass(num);
+                                openToZone(zone); // Note: this clears all is-highlighted rows
+
+                                // Apply persistent highlight AFTER zone activation
+                                row.classList.add('is-highlighted');
+
+                                // Sidebar minimal scroll
+                                setTimeout(() => {
+                                    row.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                                }, 300);
+                            }
+
+                            // Monday Link / Action Menu
+                            const mondayUrl = row ? row.dataset.mondayUrl : null;
+                            if (isEdit || mondayUrl) {
+                                // Toggle Logic
+                                const isSameMarker = activeMarkerId === num && activeMarkerIndex === index;
+                                const isMenuOpen = actionMenu.style.display === 'flex' && actionMenu.parentElement === targetContainer;
+
+                                if (isSameMarker && isMenuOpen) {
+                                    actionMenu.style.display = 'none';
+                                    activeMarkerId = null;
+                                    activeMarkerIndex = null;
+                                } else {
+                                    // IMPORTANT: Append menu to the view container for sticky scrolling
+                                    targetContainer.appendChild(actionMenu);
+
+                                    actionMenu.style.display = 'flex';
+                                    actionMenu.style.left = `${marker.x}%`;
+                                    actionMenu.style.top = `${marker.y}%`;
+
+                                    // Animation
+                                    actionMenu.style.opacity = '0';
+                                    actionMenu.style.transform = 'translate(-50%, 30px)';
+                                    requestAnimationFrame(() => {
+                                        actionMenu.style.opacity = '1';
+                                        actionMenu.style.transform = 'translate(-50%, 20px)';
+                                    });
+
+                                    activeMarkerId = num;
+                                    activeMarkerIndex = index;
+
+                                    // Show/Hide buttons based on mode
+                                    actionMenu.querySelector('.delete').style.display = isEdit ? 'flex' : 'none';
+                                    actionMenu.querySelector('.move').style.display = isEdit ? 'flex' : 'none';
+
+                                    const monBtn = actionMenu.querySelector('#btnMondayLink');
+                                    if (mondayUrl) {
+                                        monBtn.style.display = 'flex';
+                                        monBtn.href = mondayUrl;
+                                    } else {
+                                        monBtn.style.display = 'none';
+                                    }
+
+                                    if (isEdit) {
+                                        actionMenu.querySelector('.delete').onclick = () => {
+                                            opState[num].splice(index, 1);
+                                            if (opState[num].length === 0) delete opState[num];
+                                            actionMenu.style.display = 'none';
+                                            renderDots();
+                                            updateRowStatus();
+                                        };
+                                        actionMenu.querySelector('.move').onclick = () => {
+                                            marker.tx = marker.x; marker.ty = marker.y;
+                                            renderDots();
+                                        };
+                                    }
+                                }
+                            } else {
+                                actionMenu.style.display = 'none';
+                                activeMarkerId = null;
+                                activeMarkerIndex = null;
+                            }
+
+                            // Focus effect on dots and lines
+                            const elementsToFocus = document.querySelectorAll(`[data-num="${num}"]`);
+                            const alreadyFocused = dot.classList.contains('is-focused');
+                            document.querySelectorAll('.is-focused').forEach(d => d.classList.remove('is-focused'));
+
+                            if (!alreadyFocused) {
+                                viewsPanel.classList.add('dot-focus');
+                                elementsToFocus.forEach(el => el.classList.add('is-focused'));
+                            } else {
+                                viewsPanel.classList.remove('dot-focus');
+                            }
+                        });
+                    });
+                });
+            };
+
+            // ── GLOBAL EVENTS ──
+            window.addEventListener('mousemove', (e) => {
+                if (!dragTarget) return;
+                const targetContainer = dragTarget.cell.querySelector('.img-wrapper');
+                const rect = targetContainer.getBoundingClientRect();
+                const x = Math.max(0, Math.min(100, ((e.clientX - rect.left) / rect.width) * 100)).toFixed(2);
+                const y = Math.max(0, Math.min(100, ((e.clientY - rect.top) / rect.height) * 100)).toFixed(2);
+
+                const marker = opState[dragTarget.num][dragTarget.index];
+                if (dragTarget.type === 'dot') {
+                    marker.x = x; marker.y = y;
+                } else {
+                    marker.tx = x; marker.ty = y;
+                }
+                renderDots();
+            });
+
+            window.addEventListener('mouseup', () => {
+                if (dragTarget) {
+                    dragTarget = null;
+                    saveToCache();
+                    // Re-enable interactions that might have been disabled
+                }
+            });
+            window.addEventListener('click', (e) => {
+                // Only clear focus if clicking outside dots/lines and not on the sidebar
+                if (!e.target.closest('.callout-dot') && !e.target.closest('.cfg-row') && !e.target.closest('.leader-line') && !e.target.closest('.target-node')) {
+                    actionMenu.style.display = 'none';
+                    // We no longer clear dot-focus automatically on global click to respect persistent focus
+                    // Unless clicking on empty space in views
+                    if (e.target.closest('.view-cell')) {
+                        viewsPanel.classList.remove('dot-focus');
+                        document.querySelectorAll('.is-focused').forEach(d => d.classList.remove('is-focused'));
+                        // Clear highlight when clicking empty space in view
+                        document.querySelectorAll('.is-highlighted').forEach(r => r.classList.remove('is-highlighted'));
+                    }
+                }
+            });
+
+            // ── ROW SELECTION (Initialization) ──
+            configRows.forEach(row => {
+                const num = row.querySelector('.cfg-num').textContent.trim();
+                row.id = `row-${num}`;
+                row.addEventListener('click', (e) => {
+                    if (!isEditMode) {
+                        // View mode: Focus dot and lines on map
+                        const elementsToFocus = document.querySelectorAll(`[data-num="${num}"]`);
+
+                        // Fallback for older dots without data-num if they exist
+                        const fallbackDot = Array.from(document.querySelectorAll('.callout-dot')).find(d => d.textContent.trim() === num);
+                        const focusTargets = elementsToFocus.length > 0 ? Array.from(elementsToFocus) : (fallbackDot ? [fallbackDot] : []);
+
+                        if (focusTargets.length > 0) {
+                            const alreadyFocused = focusTargets[0].classList.contains('is-focused');
+                            document.querySelectorAll('.is-focused').forEach(d => d.classList.remove('is-focused'));
+
+                            if (!alreadyFocused) {
+                                viewsPanel.classList.add('dot-focus');
+                                focusTargets.forEach(el => el.classList.add('is-focused'));
+                                // Scroll the view to the first dot
+                                const firstDot = focusTargets.find(el => el.classList.contains('callout-dot')) || focusTargets[0];
+                                if (firstDot) firstDot.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                                // Persistent highlight from table side
+                                document.querySelectorAll('.is-highlighted').forEach(r => r.classList.remove('is-highlighted'));
+                                row.classList.add('is-highlighted');
+                            } else {
+                                viewsPanel.classList.remove('dot-focus');
+                            }
+                        }
+                        return;
+                    }
+                    e.stopPropagation();
+
+                    const numKey = row.querySelector('.cfg-num').textContent.trim();
+                    if (opState[numKey] && opState[numKey].length >= 2) {
+                        return; // Prevent selection if exhausted
+                    }
+
+                    const isSelected = row.classList.contains('is-selected');
+                    configRows.forEach(r => r.classList.remove('is-selected'));
+                    viewCells.forEach(v => v.classList.remove('stamp-ready'));
+
+                    if (!isSelected) {
+                        row.classList.add('is-selected');
+                        activeItemNum = num;
+                        viewCells.forEach(v => v.classList.add('stamp-ready'));
+                    } else {
+                        activeItemNum = null;
+                    }
+                });
+            });
+
+            // ── STAMP LOGIC (Press and Pull) ──
+            const stampWrappers = document.querySelectorAll('.img-wrapper');
+            stampWrappers.forEach(wrapper => {
+                wrapper.addEventListener('mousedown', (e) => {
+                    if (!isEditMode || !activeItemNum) return;
+                    if (opState[activeItemNum] && opState[activeItemNum].length >= 2) return;
+
+                    const cell = wrapper.closest('.view-cell');
+                    const rect = wrapper.getBoundingClientRect();
+                    const x = (((e.clientX - rect.left) / rect.width) * 100).toFixed(2);
+                    const y = (((e.clientY - rect.top) / rect.height) * 100).toFixed(2);
+
+                    if (!opState[activeItemNum]) opState[activeItemNum] = [];
+                    const newIndex = opState[activeItemNum].length;
+
+                    // Initial placement: bubble and target at same spot
+                    opState[activeItemNum].push({ view: cell.dataset.view, x, y, tx: x, ty: y });
+
+                    // Trigger immediate dragging of the target point
+                    dragTarget = { num: activeItemNum, index: newIndex, type: 'node', cell: cell };
+
+                    activeItemNum = null;
+                    configRows.forEach(r => r.classList.remove('is-selected'));
+                    viewCells.forEach(v => v.classList.remove('stamp-ready'));
+
+                    renderDots();
+                    updateRowStatus();
+                });
+            });
+
+            // Zone meta
+            const ZONE_META = {
+                estructura: { name: 'Estructura / Acero', color: 'var(--orange)' },
+                refacciones: { name: 'Refacciones / Accesorios', color: 'var(--purple)' },
+                suspension: { name: 'Suspensión y Neumática', color: '#78350f' },
+                electrico: { name: 'Eléctrico / Publicidad', color: 'var(--green)' },
+                adicionales: { name: 'Adicionales / Cambios', color: 'var(--brand-wine)' }
+            };
+
+            const sidebar = document.getElementById('sidebar');
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const sidebarCollapse = document.getElementById('sidebarCollapse');
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            const headerMenuToggle = document.getElementById('headerMenuToggle');
+            const railZoneBtns = document.querySelectorAll('.rail-btn[data-zone]');
+            const drawerZoneDot = document.getElementById('drawerZoneDot');
+            const drawerZoneText = document.getElementById('drawerZoneText');
+
+            function activateZone(zone) {
+                const meta = ZONE_META[zone];
+                if (meta && drawerZoneDot && drawerZoneText) {
+                    drawerZoneDot.style.background = meta.color;
+                    drawerZoneText.textContent = meta.name;
+                    drawerZoneText.style.color = meta.color;
+                }
+                document.querySelectorAll('.zone-items').forEach(el => {
+                    el.classList.toggle('active', el.dataset.zone === zone);
+                });
+                // Clear highlight when changing zones
+                document.querySelectorAll('.is-highlighted').forEach(r => r.classList.remove('is-highlighted'));
+
+                // Remove 'filter-active' from viewsPanel to keep all dots visible by default
+                viewsPanel.className = 'views-panel active-' + zone;
+                document.body.dataset.activeZone = zone;
+
+                // Update item counts
+                const allItems = document.querySelectorAll('.cfg-row').length;
+                const currentZoneItems = document.querySelectorAll(`.zone-items[data-zone="${zone}"] .cfg-row`).length;
+                const countSpan = document.getElementById('drawerZoneCount');
+                if (countSpan) countSpan.textContent = `${currentZoneItems}/${allItems} items`;
+            }
+
+            // Toggle zone filtering when clicking the drawer header title
+            const drawerZoneHeader = document.getElementById('drawerZoneName');
+            drawerZoneHeader?.addEventListener('click', () => {
+                document.body.classList.toggle('is-filtering-zone');
+            });
+
+            function openToZone(zone) {
+                sidebar.classList.add('is-open');
+                railZoneBtns.forEach(b => b.classList.toggle('is-active', b.dataset.zone === zone));
+                activateZone(zone);
+            }
+
+            sidebarToggle?.addEventListener('click', () => {
+                if (sidebar.classList.contains('is-open')) {
+                    sidebar.classList.remove('is-open');
+                } else {
+                    const activeBtn = document.querySelector('.rail-btn.is-active[data-zone]');
+                    openToZone(activeBtn ? activeBtn.dataset.zone : 'estructura');
+                }
+            });
+
+            sidebarCollapse?.addEventListener('click', () => {
+                sidebar.classList.remove('is-open');
+            });
+
+            headerMenuToggle?.addEventListener('click', () => {
+                sidebar.classList.toggle('is-open');
+            });
+
+            mobileMenuToggle?.addEventListener('click', () => {
+                sidebar.classList.toggle('is-open');
+            });
+
+            // --- Proportional Scaling via ResizeObserver ---
+            const resizeObserver = new ResizeObserver(entries => {
+                const isMobile = window.innerWidth <= 1024;
+                if (!isMobile) return; // CSS handles desktop via !important
+
+                for (let entry of entries) {
+                    const wrapper = entry.target;
+                    const img = wrapper.querySelector('img');
+                    if (!img) continue;
+
+                    // Calculate or use captured baseline
+                    let baseWidth = parseFloat(wrapper.dataset.baseWidth);
+                    if (!baseWidth || isNaN(baseWidth)) {
+                        if (img.complete && img.naturalHeight > 0) {
+                            baseWidth = 420 * (img.naturalWidth / img.naturalHeight);
+                        } else {
+                            baseWidth = 800; // Generic fallback
+                        }
+                        wrapper.dataset.baseWidth = baseWidth;
+                    }
+
+                    const currentWidth = entry.contentRect.width;
+                    let scale = currentWidth / baseWidth;
+
+                    // Proportional scale on mobile only
+                    scale = Math.max(0.6, Math.min(1.0, scale));
+                    wrapper.style.setProperty('--scale', scale.toFixed(3));
+                }
+            });
+
+            document.querySelectorAll('.img-wrapper').forEach(wrapper => {
+                resizeObserver.observe(wrapper);
+                const img = wrapper.querySelector('img');
+
+                // On desktop initialization, capture the 'Normal' width
+                if (window.innerWidth > 1024) {
+                    if (img.complete) {
+                        wrapper.dataset.baseWidth = wrapper.offsetWidth;
+                    } else {
+                        img.onload = () => { wrapper.dataset.baseWidth = wrapper.offsetWidth; };
+                    }
+                }
+            });
+
+            railZoneBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const zone = btn.dataset.zone;
+                    const alreadyOn = btn.classList.contains('is-active') && sidebar.classList.contains('is-open');
+                    if (alreadyOn) {
+                        sidebar.classList.remove('is-open');
+                        delete document.body.dataset.activeZone;
+                    } else {
+                        openToZone(zone);
+                    }
+                });
+            });
+
+            sidebarCollapse?.addEventListener('click', () => {
+                sidebar.classList.remove('is-open');
+                delete document.body.dataset.activeZone;
+            });
+
+            // ── ADD ITEM LOGIC ──
+            document.querySelectorAll('.btn-add-item').forEach(btn => {
+                btn.onclick = () => {
+                    const zone = btn.dataset.zone;
+                    let num, name, qty, desc, idKit;
+
+                    if (zone === 'adicionales') {
+                        num = prompt("Número del componente (ej: 31):");
+                        if (!num) return;
+                        name = prompt("Configuración (Categoría):");
+                        qty = prompt("Cantidad:", "1");
+                        desc = prompt("Descripción completa:");
+                        idKit = prompt("ID del Kit (Monday Pulse ID):");
+                    } else {
+                        num = prompt("Número del componente (ej: 31):");
+                        if (!num) return;
+                        name = prompt("Nombre/Descripción del componente:");
+                        qty = prompt("Cantidad:", "1");
+                    }
+
+                    const container = btn.parentElement;
+                    const row = document.createElement('div');
+                    row.className = 'cfg-row';
+                    row.id = `row-${num}`;
+                    if (desc) row.setAttribute('data-desc', desc);
+                    if (idKit) row.setAttribute('data-id', idKit);
+
+                    row.innerHTML = `
+            <div class="cfg-num">${num}</div>
+            <div class="cfg-desc"><strong>${name}</strong></div>
+            <div class="cfg-qty">${qty || '1'}</div>
+            <div class="cfg-link"></div>
+            <button class="row-delete-btn" title="Borrar ítem de la lista">🗑️</button>
+          `;
+
+                    container.insertBefore(row, btn);
+
+                    if (zone === 'adicionales') {
+                        const obsBoxes = document.querySelectorAll('.obs-box');
+                        let equipBox = null;
+                        obsBoxes.forEach(box => {
+                            if (box.textContent.includes('Equipamiento Adicional')) {
+                                equipBox = box;
+                            }
+                        });
+
+                        if (equipBox) {
+                            const newObs = document.createElement('div');
+                            newObs.className = 'obs-item';
+                            const obsCount = equipBox.querySelectorAll('.obs-item').length + 1;
+                            newObs.textContent = `${obsCount}.- ${name}: ${desc || ''} (Cant: ${qty})`;
+                            equipBox.appendChild(newObs);
+                        }
+                    }
+
+                    initMondayLinks(row);
+
+                    row.onclick = (e) => {
+                        if (!isEditMode) return;
+                        e.stopPropagation();
+                        if (opState[num] && opState[num].length >= 2) return;
+                        const isSelected = row.classList.contains('is-selected');
+                        document.querySelectorAll('.cfg-row').forEach(r => r.classList.remove('is-selected'));
+                        document.querySelectorAll('.img-wrapper').forEach(v => v.classList.remove('stamp-ready'));
+                        if (!isSelected) {
+                            row.classList.add('is-selected');
+                            activeItemNum = num;
+                            document.querySelectorAll('.img-wrapper').forEach(v => v.classList.add('stamp-ready'));
+                        } else { activeItemNum = null; }
+                    };
+
+                    const delBtn = row.querySelector('.row-delete-btn');
+                    delBtn.onclick = (e) => {
+                        e.stopPropagation();
+                        if (confirm(`¿Borrar ítem ${num}?`)) {
+                            row.remove();
+                            delete opState[num];
+                            saveToCache();
+                            updateRowStatus();
+                            document.querySelectorAll(`[data-num="${num}"]`).forEach(el => el.remove());
+                        }
+                    };
+                };
+            });
+
+            // ── ADMIN & PERSISTENCE LOGIC ──
+            const adminLockToggle = document.getElementById('adminLockToggle');
+            const adminSaveBtn = document.getElementById('adminSaveBtn');
+
+            adminLockToggle?.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                if (isEditMode) return;
+
+                const pwd = prompt("Ingrese la palabra clave para habilitar la edición:");
+                if (pwd === "SistemasRyE") {
+                    isEditMode = true;
+                    document.body.classList.add('is-edit-mode');
+                    adminLockToggle.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></svg>'; // Open lock icon
+
+                    // Enable date editing
+                    document.querySelectorAll('.hd-row span').forEach(s => s.contentEditable = "true");
+                } else if (pwd !== null) {
+                    alert("Palabra clave incorrecta.");
+                }
+            });
+
+            adminSaveBtn?.addEventListener('click', () => {
+                if (!isEditMode) return;
+
+                // 1. Unselect anything active to avoid saving temporary DOM states
+                activeItemNum = null;
+                configRows.forEach(r => r.classList.remove('is-selected'));
+                document.querySelectorAll('.img-wrapper').forEach(v => v.classList.remove('stamp-ready'));
+                actionMenu.style.display = 'none';
+
+                saveToCache(); // Sync latest drag positions before stringifying
+
+                // 2. Clear out any injected tooltips from the export (body children)
+                const dataScript = document.getElementById('op-data');
+                if (dataScript) dataScript.textContent = JSON.stringify(opState);
+
+                // Update Last Updated Date
+                const dateSpan = document.querySelector('.hd-row:nth-child(3) span');
+                if (dateSpan) {
+                    const now = new Date();
+                    const day = now.getDate().toString().padStart(2, '0');
+                    const months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+                    const month = months[now.getMonth()];
+                    const year = now.getFullYear().toString().substring(2);
+                    const hours = now.getHours().toString().padStart(2, '0');
+                    const minutes = now.getMinutes().toString().padStart(2, '0');
+                    dateSpan.textContent = `${day}/${month}/${year} ${hours}:${minutes}`;
+                }
+
+                // 3. Clone the document to strip out runtime states that shouldn't be saved
+                const cloneDoc = document.documentElement.cloneNode(true);
+                const cloneBody = cloneDoc.querySelector('body');
+
+                // Strip out the mode so the next person opens it locked
+                cloneBody.classList.remove('is-edit-mode', 'is-filtering-zone');
+                cloneBody.removeAttribute('data-active-zone');
+                const cloneLock = cloneDoc.querySelector('#adminLockToggle');
+                if (cloneLock) cloneLock.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>';
+
+                // Strip out dynamically added SVGs and action menus to ensure a pure init on next load
+                cloneDoc.querySelectorAll('.callout-tooltip, .marker-actions').forEach(el => el.remove());
+                cloneDoc.querySelectorAll('.svg-overlay').forEach(el => el.innerHTML = '');
+                cloneDoc.querySelectorAll('.callout-dot, .target-node').forEach(el => el.remove());
+
+                // 4. Serialize back to text
+                const finalHtml = "<!DOCTYPE html>\n" + cloneDoc.outerHTML;
+
+                // 5. Trigger download
+                const blob = new Blob([finalHtml], { type: 'text/html;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = "OP_200963_PLES_KWS_TEMOANCHAN.html";
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            });
+
+            // Init UI state but keep sidebar closed by default
+            const initialZone = 'estructura';
+            activateZone(initialZone);
+            railZoneBtns.forEach(b => b.classList.toggle('is-active', b.dataset.zone === initialZone));
+            // render dots and sync markers
+            updateRowStatus();
+            renderDots();
+        });
+    </script>
+
+    <!-- ═══ MODAL GRABADO ═══════════════════════════════════════════ -->
+    <div id="grabadoModal" onclick="if(event.target===this)this.style.display='none'">
+        <div class="modal-card">
+            <!-- Header -->
+            <div style="background:rgba(0,72,146,0.6); border-bottom:1px solid rgba(255,255,255,0.08); padding:14px 20px; display:flex; align-items:center; justify-content:space-between;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <div style="width:4px; height:20px; background:var(--orange); border-radius:2px;"></div>
+                    <div>
+                        <div style="font-family:'Barlow Condensed'; font-weight:700; font-size:14px; letter-spacing:2px; text-transform:uppercase; color:white;">
+                            Grabado / Identidad Gráfica</div>
+                        <div style="font-size:10px; color:rgba(255,255,255,0.45); letter-spacing:1px;">Aplicación: GRAVADO DE LOGO EN VARAS Y TAPA TRASERA</div>
+                    </div>
+                </div>
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <div style="background:rgba(249,99,2,0.18); border:1px solid rgba(249,99,2,0.4); border-radius:4px; padding:4px 12px; font-family:'Barlow Condensed'; font-weight:700; font-size:11px; color:var(--orange); letter-spacing:1.5px; text-transform:uppercase;">
+                        ✦ Confirmado por Cliente</div>
+                    <button onclick="document.getElementById('grabadoModal').style.display='none'" style="width:30px; height:30px; border-radius:50%; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); color:rgba(255,255,255,0.7); cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:16px; line-height:1; transition:all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.18)'" onmouseout="this.style.background='rgba(255,255,255,0.08)'">✕</button>
+                </div>
+            </div>
+
+            <!-- Body -->
+            <div style="padding:36px 40px; display:flex; align-items:center; justify-content:center; gap:40px; position:relative; overflow:hidden;">
+                <!-- Círculos decorativos -->
+                <div style="position:absolute; top:-40px; right:-40px; width:200px; height:200px; border-radius:50%; border:1px solid rgba(249,99,2,0.07); pointer-events:none;">
+                </div>
+                <div style="position:absolute; bottom:-50px; left:-30px; width:160px; height:160px; border-radius:50%; border:1px solid rgba(0,72,146,0.12); pointer-events:none;">
+                </div>
+
+                <!-- Logo Grabado -->
+                <div style="background:white; border-radius:12px; padding:22px 36px; box-shadow:0 12px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.12); flex-shrink:0;">
+                    <img src="img/Grabado.png" alt="Grabado TTA" style="display:block; max-height:140px; max-width:380px; width:auto; height:auto; object-fit:contain;">
+                </div>
+
+                <!-- Especificaciones -->
+                <div style="display:flex; flex-direction:column; gap:12px; min-width:180px;">
+                    <div style="color:rgba(255,255,255,0.4); font-size:9px; letter-spacing:2.5px; text-transform:uppercase; font-weight:700; font-family:'Barlow Condensed';">
+                        Especificaciones</div>
+                    <div style="display:grid; gap:10px;">
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <div style="width:7px; height:7px; border-radius:50%; background:var(--orange); flex-shrink:0;">
+                            </div>
+                            <div>
+                                <div style="font-size:9px; color:rgba(255,255,255,0.38); text-transform:uppercase; letter-spacing:1px;">
+                                    Cliente</div>
+                                <div style="font-family:'Barlow Condensed'; font-weight:700; font-size:15px; color:white;">
+                                    KWS - TRANSPORTES TAMOANCHAN</div>
+                            </div>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <div style="width:7px; height:7px; border-radius:50%; background:#3b82f6; flex-shrink:0;">
+                            </div>
+                            <div>
+                                <div style="font-size:9px; color:rgba(255,255,255,0.38); text-transform:uppercase; letter-spacing:1px;">
+                                    Tipo</div>
+                                <div style="font-family:'Barlow Condensed'; font-weight:700; font-size:15px; color:white;">
+                                    GRAVADO DE LOGO EN VARAS Y TAPA TRASERA</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top:4px; background:rgba(22,163,74,0.15); border:1px solid rgba(22,163,74,0.3); border-radius:5px; padding:7px 12px; display:flex; align-items:center; gap:7px;">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span style="font-family:'Barlow Condensed'; font-size:12px; font-weight:700; color:#4ade80; letter-spacing:1px; text-transform:uppercase;">Logo
+                            Aprobado</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body></html>
